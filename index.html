@@ -800,7 +800,7 @@ function openSettings(){
   sg.innerHTML=CAT_SKINS.map(s=>{
     const locked=!isSkinUnlocked(s.id);
     const hint=locked?(SKIN_UNLOCK[s.id]?.hint||''):'';
-    return`<div class="skin-opt${settings.skin===s.id?' active':''}${locked?' locked':''}" onclick="${locked?`showToast('🔒 ${hint}')`:``}selectSkin('${s.id}')" style="background:${s.color}" data-skin="${s.id}" title="${hint}">
+    return`<div class="skin-opt${settings.skin===s.id?' active':''}${locked?' locked':''}" onclick="${locked?`showToast('🔒 ${hint}');return;`:``}selectSkin('${s.id}')" style="background:${s.color}" data-skin="${s.id}" title="${hint}">
       ${s.pure?'':'<div class="s-emoji">'+s.emojis[1]+'</div>'}
       <div class="s-num" style="${s.pure?'font-size:26px':''}">3</div>
     </div>`;
@@ -1153,7 +1153,7 @@ function updatePVP(){
 function checkMS(){SMS.forEach(m=>{if(score>=m.v&&!dSMS.has(m.v)){dSMS.add(m.v);showMS(m.m);}});CMS.forEach(m=>{if(combo>=m.v&&!dCMS.has(m.v)){dCMS.add(m.v);showMS(m.m);}});}
 function showMS(msg){const el=document.createElement('div');el.className='milestone';el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),2000);}
 function updateScore(){const el=document.getElementById('scoreVal');el.textContent=score;el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}
-function updateCombo(){const el=document.getElementById('comboPill');if(combo>=2){el.textContent=`×${combo>=3?'1.5':combo} 🔥`;el.className='combo-pill on';}else{el.textContent='×1';el.className='combo-pill';}}
+function updateCombo(){const el=document.getElementById('comboPill');if(combo>=3){el.textContent=`×1.5 🔥`;el.className='combo-pill on';}else if(combo>=2){el.textContent=`🔥 콤보!`;el.className='combo-pill on';}else{el.textContent='×1';el.className='combo-pill';}}
 function updateSumBar(sum){
   const bar=document.getElementById('sumBar'),num=document.getElementById('sumNum'),tip=document.getElementById('sumTip');
   bar.className='sum-bar';
@@ -1286,7 +1286,7 @@ function startGame(){
 
 function handleResultTap(e){
   // Only retry if tap on background, not on buttons/interactive elements
-  if(e.target.tagName==='BUTTON'||e.target.closest('.lb-card'))return;
+  if(e.target.tagName==='BUTTON'||e.target.tagName==='svg'||e.target.tagName==='path'||e.target.tagName==='circle'||e.target.closest('.lb-card')||e.target.closest('.share-section')||e.target.closest('button'))return;
   instantRetry();
 }
 
@@ -1294,8 +1294,15 @@ function showResult(){
   document.getElementById('panicBorder').className='panic-border';
   const isNewBest=score>best;
   if(isNewBest){best=score;localStorage.setItem('n10best',best);}
-  if(typeof fbSubmit==='function')fbSubmit(score);
-  if(typeof fbLeaderboard==='function')fbLeaderboard(score);
+  if(typeof fbSubmit==='function'){
+    fbSubmit(score).then(()=>{
+      if(typeof fbLeaderboard==='function')fbLeaderboard(score);
+    }).catch(()=>{
+      if(typeof fbLeaderboard==='function')fbLeaderboard(score);
+    });
+  } else {
+    if(typeof fbLeaderboard==='function')fbLeaderboard(score);
+  }
   const g=[...GRADES].reverse().find(g=>score>=g.min)||GRADES[0];
   document.getElementById('resEmoji').textContent=g.e;
   const ge=document.getElementById('resGrade');ge.textContent=g.t;ge.style.cssText=`background:${g.bg};color:${g.c}`;
