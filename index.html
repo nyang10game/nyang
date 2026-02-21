@@ -536,7 +536,7 @@ window.fbSubmit=async s=>{
   const prev=snap.exists()?snap.val().score:0;
   if(s>prev){
     const latestName=localStorage.getItem('n10_name')||DEVICE_NAME;
-    set(userRef,{name:latestName,score:s,t:Date.now()});
+    await set(userRef,{name:latestName,score:s,t:Date.now()});
   }
 };
 
