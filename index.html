@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>냥10</title>
+<title>냥10 — 숫자 고양이 퍼즐</title>
+<meta name="description" content="합이 10이 되면 냥~✨ 귀여운 고양이들과 함께하는 60초 숫자 퍼즐 게임! 전국 랭킹 도전!">
+<meta property="og:title" content="냥10 🐱 — 숫자 고양이 퍼즐">
+<meta property="og:description" content="합이 10이 되면 냥~✨ 60초 안에 최대한 많이! 지금 바로 도전해보세요">
+<meta property="og:image" content="https://nyang10game.github.io/nyang/og-image.png">
+<meta property="og:url" content="https://nyang10game.github.io/nyang/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="냥10 🐱 — 숫자 고양이 퍼즐">
+<meta name="twitter:description" content="합이 10이 되면 냥~✨ 60초 숫자 퍼즐, 전국 랭킹 도전!">
+<meta name="twitter:image" content="https://nyang10game.github.io/nyang/og-image.png">
 <meta name="theme-color" content="#ff6eb4">
 <link rel="manifest" href="manifest.json">
 <script>
@@ -18,7 +28,7 @@ if(!CanvasRenderingContext2D.prototype.roundRect){
 }
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8375396580965138" crossorigin="anonymous"></script>
 <style>
 :root{--bg:#fef6ff;--surface:#fff;--pink:#ff6eb4;--pink-dark:#d94d96;--mint:#4ecdc4;--red:#ff4f4f;--yellow:#ffcc00;--border:#f0d4f0;--shadow:rgba(200,100,200,0.12);--text:#3d2645;--dim:#b89db8;--c1:#ffadad;--c2:#ffcb8a;--c3:#fdffb6;--c4:#b5ead7;--c5:#a8e6f0;--c6:#a0c4ff;--c7:#c5b8ff;--c8:#ffb3de;--c9:#ff9090;--d1:#e05080;--d2:#d07020;--d3:#a89000;--d4:#30a870;--d5:#1890b0;--d6:#3060c0;--d7:#6040c0;--d8:#c040a0;--d9:#c02020;}
 body.night{--bg:#1a1025;--surface:#2a1f35;--border:#3d2d50;--shadow:rgba(0,0,0,0.4);--text:#f0e0ff;--dim:#8a6a9a;--c1:#c45050;--c2:#b07030;--c3:#909060;--c4:#3a7a5a;--c5:#2a6a80;--c6:#2a50a0;--c7:#5a3a9a;--c8:#a03070;--c9:#b03030;}
@@ -248,7 +258,7 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
   <div class="logo-sub">NUMBER PUZZLE</div>
   <div class="live-bar">
     <div style="display:flex;align-items:center;gap:8px"><div class="live-dot"></div><span class="live-txt">지금 플레이 중</span></div>
-    <span class="live-cnt" id="liveCnt">로딩...</span>
+    <span class="live-cnt" id="liveCnt">1명</span>
   </div>
   <div class="daily-challenge" id="dailyChallenge">
     <span class="dc-badge">📅 오늘의 미션</span>
@@ -267,12 +277,14 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
   <div style="margin-top:8px;text-align:center;">
     <span onclick="openPrivacy()" style="font-size:11px;font-weight:800;color:var(--dim);letter-spacing:1px;cursor:pointer;text-decoration:underline;">개인정보처리방침</span>
     &nbsp;·&nbsp;
+    <span onclick="openTerms()" style="font-size:11px;font-weight:800;color:var(--dim);letter-spacing:1px;cursor:pointer;text-decoration:underline;">이용약관</span>
+    &nbsp;·&nbsp;
     <a href="https://buymeacoffee.com/bang.a.can" target="_blank" style="font-size:11px;font-weight:800;color:#f7c948;text-decoration:none;">🧋 커피 한 잔</a>
     &nbsp;·&nbsp;
     <a href="https://www.threads.net/@bang.a.can" target="_blank" style="font-size:11px;font-weight:800;color:var(--pink);text-decoration:none;"><span style="color:var(--dim);">by </span>@bang.a.can</a>
   </div>
   <div style="margin-top:6px;width:100%;min-height:50px;">
-    <ins class="adsbygoogle" style="display:block;width:100%;height:50px;" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"></ins>
+    <ins class="adsbygoogle" style="display:block;width:100%;height:50px;" data-ad-client="ca-pub-8375396580965138" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"></ins>
     <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
   </div>
 </div>
@@ -339,7 +351,7 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
     <div class="share-labels-row"><span>X</span><span>Threads</span><span>카톡</span><span>링크복사</span><span>더보기</span></div>
   </div>
   <div style="width:100%;min-height:50px;">
-    <ins class="adsbygoogle" style="display:block;width:100%;height:50px;" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"></ins>
+    <ins class="adsbygoogle" style="display:block;width:100%;height:50px;" data-ad-client="ca-pub-8375396580965138" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"></ins>
     <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
   </div>
 </div>
@@ -355,6 +367,31 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
     <div class="tut-step">3️⃣ 한번에 3개 이상 → <b>보너스 점수 🔥</b></div>
     <div class="tut-step">4️⃣ 연속으로 성공하면 <b>콤보!</b></div>
     <button class="tut-btn" onclick="closeTut()">시작하기 🐾</button>
+  </div>
+</div>
+
+<div class="settings-modal hidden" id="termsModal" onclick="closeTermsBg(event)">
+  <div class="settings-sheet" style="max-height:80vh;overflow-y:auto;">
+    <div class="settings-title">📄 이용약관</div>
+    <button class="settings-close" onclick="closeTerms()">✕</button>
+    <div style="font-size:12px;font-weight:700;color:var(--text);line-height:1.8;">
+      <p style="margin-bottom:10px;color:var(--dim);">시행일: 2025년 1월 1일</p>
+      <b>제1조 (목적)</b>
+      <p style="margin:6px 0 12px;">이 약관은 냥10(이하 "서비스")이 제공하는 웹 게임 서비스의 이용 조건 및 절차, 이용자와 서비스 간의 권리·의무 및 책임 사항을 규정함을 목적으로 합니다.</p>
+      <b>제2조 (서비스 이용)</b>
+      <p style="margin:6px 0 12px;">- 서비스는 별도 회원가입 없이 무료로 이용할 수 있습니다.<br>- 이용자는 본 약관에 동의함으로써 서비스를 이용할 수 있습니다.<br>- 만 14세 미만의 경우 법정대리인의 동의가 필요합니다.</p>
+      <b>제3조 (금지 행위)</b>
+      <p style="margin:6px 0 12px;">- 리더보드 점수 조작, 어뷰징, 핵 사용 등 부정한 방법의 점수 취득<br>- 타 이용자의 게임 진행을 방해하는 행위<br>- 서비스의 정상적인 운영을 방해하는 행위</p>
+      <b>제4조 (서비스 변경 및 중단)</b>
+      <p style="margin:6px 0 12px;">서비스는 운영 정책에 따라 사전 고지 없이 변경되거나 중단될 수 있으며, 이로 인한 손해에 대해 별도의 보상을 제공하지 않습니다.</p>
+      <b>제5조 (면책 조항)</b>
+      <p style="margin:6px 0 12px;">서비스는 이용자의 귀책 사유로 발생한 서비스 이용 장애에 대해 책임을 지지 않습니다. 또한 이용자가 서비스를 통해 기대하는 이익을 보장하지 않습니다.</p>
+      <b>제6조 (준거법 및 분쟁해결)</b>
+      <p style="margin:6px 0 12px;">이 약관은 대한민국 법률에 따라 해석되며, 분쟁 발생 시 관할 법원은 서울중앙지방법원으로 합니다.</p>
+      <b>제7조 (문의)</b>
+      <p style="margin:6px 0 12px;">📧 <a href="mailto:nyang10game@gmail.com" style="color:var(--pink);">nyang10game@gmail.com</a></p>
+    </div>
+    <button class="settings-save" onclick="closeTerms()">확인 ✅</button>
   </div>
 </div>
 
@@ -375,7 +412,7 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
       <b>5. 이용자 권리</b>
       <p style="margin:6px 0 12px;">이용자는 언제든지 본인의 데이터 삭제를 요청할 수 있습니다. 앱 설정에서 데이터 초기화가 가능합니다.</p>
       <b>6. 문의</b>
-      <p style="margin:6px 0 12px;">개인정보 관련 문의는 서비스 내 문의 채널을 이용해 주세요.</p>
+      <p style="margin:6px 0 12px;">개인정보 관련 문의는 아래 이메일로 연락주세요.<br>📧 <a href="mailto:nyang10game@gmail.com" style="color:var(--pink);">nyang10game@gmail.com</a></p>
     </div>
     <button class="settings-save" onclick="closePrivacy()">확인 ✅</button>
   </div>
@@ -402,8 +439,9 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import{getDatabase,ref,set,get,push,onValue,onDisconnect,query,orderByChild,limitToLast}from"https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
+import{getAnalytics,logEvent}from"https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
 const cfg={apiKey:"AIzaSyD3XutJt1rNdunlkq_HNYZI28ZKxhCQN8U",authDomain:"nyang10-85344.firebaseapp.com",databaseURL:"https://nyang10-85344-default-rtdb.firebaseio.com",projectId:"nyang10-85344",storageBucket:"nyang10-85344.firebasestorage.app",messagingSenderId:"404004970168",appId:"1:404004970168:web:83f9ca635dabd038441e4d"};
-const app=initializeApp(cfg);const db=getDatabase(app);
+const app=initializeApp(cfg);const db=getDatabase(app);const analytics=getAnalytics(app);
 function getDeviceId(){let id=localStorage.getItem('n10_uid');if(!id){id='u_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);localStorage.setItem('n10_uid',id);}return id;}
 function getDeviceName(){let n=localStorage.getItem('n10_name');if(!n){n='냥집사'+Math.floor(Math.random()*9000+1000);localStorage.setItem('n10_name',n);}return n;}
 const DEVICE_ID=getDeviceId();
@@ -444,6 +482,7 @@ window.fbLeaderboard=myScore=>{
   });
 };
 window.stopLbListen=()=>{if(lbUnsub){lbUnsub();lbUnsub=null;}};
+window.analyticsLog=(name,params)=>{try{logEvent(analytics,name,params||{});}catch(e){}};
 </script>
 
 <script>
@@ -602,6 +641,9 @@ function my(r,c){const el=getTEl(r,c);if(!el)return window.innerHeight*.4;const 
 function openPrivacy(){document.getElementById('privacyModal').classList.remove('hidden');}
 function closePrivacy(){document.getElementById('privacyModal').classList.add('hidden');}
 function closePrivacyBg(e){if(e.target===document.getElementById('privacyModal'))closePrivacy();}
+function openTerms(){document.getElementById('termsModal').classList.remove('hidden');}
+function closeTerms(){document.getElementById('termsModal').classList.add('hidden');}
+function closeTermsBg(e){if(e.target===document.getElementById('termsModal'))closeTerms();}
 function confirmRestart(){if(!running)return;document.getElementById('restartModal').classList.remove('hidden');}
 function doRestart(){document.getElementById('restartModal').classList.add('hidden');clearInterval(ticker);clearTimeout(cTimer);clearTimeout(pTimer);clearInterval(oppTimer);stopBGM();stopTickSound();running=false;const ov=document.getElementById('cdOv'),ne=document.getElementById('cdN');ov.classList.remove('hidden');let n=3;ne.textContent=n;const iv=setInterval(()=>{n--;playTone(n>0?440:880,'sine',0.15,0.3);if(n>0){ne.textContent=n;ne.style.animation='none';void ne.offsetWidth;ne.style.animation='';}else{clearInterval(iv);ov.classList.add('hidden');startGame();}},850);}
 function cancelRestart(){document.getElementById('restartModal').classList.add('hidden');}
@@ -613,6 +655,7 @@ function startGame(){
   if(typeof stopLbListen==='function')stopLbListen();
   stopBGM();clearInterval(ticker);clearTimeout(cTimer);clearTimeout(pTimer);clearInterval(oppTimer);stopTickSound();
   board=[];sel=[];score=0;cleared=0;combo=0;timeLeft=DURATION;running=true;tid=0;oppScore=0;dSMS=new Set();dCMS=new Set();dc3hits=0;pressureActive=false; // [BUG FIX #3] 게임 재시작 시 플래그 리셋
+  if(typeof analyticsLog==='function')analyticsLog('game_start',{skin:settings&&settings.skin||'classic'});
   document.getElementById('panicBorder').className='panic-border';
   initBoard();updateScore();updateCombo();updateSumBar(0);updateTimer();updatePVP();showScreen('game');buildGrid();startOpp();startBGM();
   ticker=setInterval(()=>{timeLeft--;updateTimer();if(timeLeft===40||timeLeft===15)startPressure();if(timeLeft>0&&timeLeft%10===0&&timeLeft<50){const rush=document.createElement('div');rush.className='milestone';rush.textContent=timeLeft<=15?'⚡ 막판이다!':timeLeft<=30?'🔥 속도를 올려!':'💨 집중!';document.body.appendChild(rush);setTimeout(()=>rush.remove(),1800);}if(timeLeft<=0){clearInterval(ticker);clearTimeout(pTimer);clearInterval(oppTimer);running=false;pressureActive=false;stopBGM();sndGameOver();checkDailyChallenge();setTimeout(showResult,150);}},1000);
@@ -621,6 +664,7 @@ function handleResultTap(e){if(e.target.tagName==='BUTTON'||e.target.tagName==='
 function showResult(){
   document.getElementById('panicBorder').className='panic-border';
   const isNewBest=score>best;if(isNewBest){best=score;localStorage.setItem('n10best',best);}
+  if(typeof analyticsLog==='function')analyticsLog('game_over',{score:score,cleared:cleared,is_new_best:isNewBest,best:best});
   if(typeof fbSubmit==='function'){fbSubmit(score).then(()=>{if(typeof fbLeaderboard==='function')fbLeaderboard(score);}).catch(()=>{if(typeof fbLeaderboard==='function')fbLeaderboard(score);});}else{if(typeof fbLeaderboard==='function')fbLeaderboard(score);}
   const g=[...GRADES].reverse().find(g=>score>=g.min)||GRADES[0];
   document.getElementById('resEmoji').textContent=g.e;
