@@ -36,7 +36,7 @@ body.night .live-bar,body.night .rule-card,body.night .sum-bar,body.night .pvp-b
 body.night .mute-btn,body.night .settings-btn{background:#2a1f35;}
 body.night .settings-close{background:#3d2d50;color:#f0e0ff;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{background:var(--bg);font-family:'Nunito',sans-serif;min-height:100dvh;display:flex;flex-direction:column;align-items:center;overflow:hidden;user-select:none;}
+body{background:var(--bg);font-family:'Nunito',sans-serif;min-height:100dvh;height:100dvh;display:flex;flex-direction:column;align-items:center;overflow:hidden;user-select:none;position:relative;}
 .screen{width:100%;max-width:420px;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 14px;position:absolute;top:0;left:50%;transform:translateX(-50%);transition:opacity .2s,transform .2s;z-index:1;pointer-events:auto;}
 .screen.hidden{opacity:0;pointer-events:none;transform:translateX(-50%) scale(.97);z-index:0;}
 .logo-emoji{font-size:68px;display:block;text-align:center;animation:boing 2s ease-in-out infinite;}
@@ -220,12 +220,29 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
 .tut-step{width:100%;font-size:14px;font-weight:800;color:var(--text);background:var(--bg);border-radius:12px;padding:10px 14px;border:2px solid var(--border);}
 .tut-btn{width:100%;height:52px;border:none;border-radius:18px;background:linear-gradient(135deg,#ff6eb4,#ff9fd3);color:white;font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;cursor:pointer;box-shadow:0 6px 0 var(--pink-dark);margin-top:4px;}
 .tut-btn:active{transform:translateY(3px);box-shadow:0 3px 0 var(--pink-dark);}
-.lang-bar{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;gap:4px;}
-.lang-btn{height:28px;padding:0 10px;border-radius:20px;border:2px solid var(--border);background:white;font-family:'Nunito',sans-serif;font-size:11px;font-weight:900;cursor:pointer;color:var(--dim);transition:all .15s;box-shadow:0 2px 8px var(--shadow);}
-.lang-btn.active{background:var(--pink);border-color:var(--pink);color:white;}
-body.night .lang-btn{background:#2a1f35;}
-body.night .lang-btn.active{background:var(--pink);color:white;}
 
+
+
+body.night 
+body.night 
+
+
+
+
+/* 🏆 TOP 3 */
+.top3-card{width:100%;background:white;border-radius:14px;border:2px solid var(--border);padding:10px 16px;margin-bottom:12px;box-shadow:0 3px 12px var(--shadow);}
+body.night .top3-card{background:#2a1f35;}
+.top3-title{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--dim);text-transform:uppercase;margin-bottom:8px;}
+.top3-row{display:flex;align-items:center;gap:8px;padding:3px 0;font-size:13px;font-weight:800;color:var(--text);}
+.top3-medal{font-size:16px;width:24px;text-align:center;}
+.top3-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.top3-score{color:var(--pink);font-size:14px;}
+
+/* 🌐 언어 설정 버튼 */
+.lang-opt{flex:1;height:40px;border-radius:20px;border:2px solid var(--border);background:var(--bg);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;color:#bbb;transition:all .15s;}
+.lang-opt.active{background:var(--pink);border-color:var(--pink);color:white;}
+body.night .lang-opt{background:#2a1f35;color:#c0a8d0;border-color:#5a4070;}
+body.night .lang-opt.active{background:var(--pink);color:white;}
 
 /* 🐾 발바닥 타일 */
 .ti{border-radius:16px!important;}
@@ -235,7 +252,7 @@ body.night .lang-btn.active{background:var(--pink);color:white;}
 
 /* ✨ 냥10 디자인 리뉴얼 */
 :root{--bg:#fffbfd;--border:#f8e4f4;--shadow:rgba(255,160,185,0.10);}
-body:not(.night)::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 10% -5%,#FFE8F4 0%,transparent 50%),radial-gradient(ellipse 55% 45% at 92% 105%,#FFE4D4 0%,transparent 50%),#fffbfd;z-index:-1;pointer-events:none;}
+body:not(.night)::before{content:'';position:fixed;inset:0;width:100%;height:100%;background:radial-gradient(ellipse 70% 50% at 10% -5%,#FFE8F4 0%,transparent 50%),radial-gradient(ellipse 55% 45% at 92% 105%,#FFE4D4 0%,transparent 50%),#fffbfd;z-index:-1;pointer-events:none;}
 body.night::before{display:none;}
 body:not(.night) .logo-title{color:transparent!important;background:linear-gradient(150deg,#FF8FAB 0%,#FFB3C6 55%,#FFCDD8 100%);-webkit-background-clip:text;background-clip:text;text-shadow:none!important;filter:drop-shadow(0 4px 10px rgba(255,143,171,0.22));}
 body:not(.night) .btn-play{background:linear-gradient(150deg,#FFB3C6 0%,#FF8FAB 100%)!important;border-radius:26px!important;box-shadow:0 7px 0 #d96090!important;}
@@ -248,7 +265,7 @@ body:not(.night) .live-bar,body:not(.night) .rule-card{border-color:#fce0f0!impo
 <body>
 <div class="panic-border" id="panicBorder"></div>
 <div class="flash-ov" id="flashOv"></div>
-<div class="lang-bar"><button class="lang-btn active" id="lb_ko" onclick="nLang('ko')">한국어</button><button class="lang-btn" id="lb_en" onclick="nLang('en')">English</button><button class="lang-btn" id="lb_ja" onclick="nLang('ja')">日本語</button></div>
+
 <button class="settings-btn" onclick="openSettings()" title="설정">⚙️</button>
 <button class="mute-btn" id="muteBtn" onclick="toggleMute()" title="음소거">🔊</button>
 
@@ -272,6 +289,12 @@ body:not(.night) .live-bar,body:not(.night) .rule-card{border-color:#fce0f0!impo
     <div class="skin-grid" id="skinGrid"></div>
     <div class="settings-section" id="nThemeLabel">🎨 색상 테마</div>
     <div class="theme-grid" id="themeGrid"></div>
+        <div class="settings-section" id="nLangLabel">🌐 언어</div>
+    <div style="display:flex;gap:8px;width:100%;margin-bottom:4px;">
+      <button class="lang-opt" id="sl_ko" onclick="nLang('ko');['ko','en','ja'].forEach(l=>{const el=document.getElementById('sl_'+l);if(el)el.classList.toggle('active',l==='ko');})">한국어</button>
+      <button class="lang-opt" id="sl_en" onclick="nLang('en');['ko','en','ja'].forEach(l=>{const el=document.getElementById('sl_'+l);if(el)el.classList.toggle('active',l==='en');})">English</button>
+      <button class="lang-opt" id="sl_ja" onclick="nLang('ja');['ko','en','ja'].forEach(l=>{const el=document.getElementById('sl_'+l);if(el)el.classList.toggle('active',l==='ja');})">日本語</button>
+    </div>
     <button class="settings-save" onclick="saveSettings()" id="nSaveAll">저장 💾</button>
   </div>
 </div>
@@ -489,6 +512,19 @@ window.fbSubmit=async s=>{
   if(s>prev){const latestName=localStorage.getItem('n10_name')||DEVICE_NAME;await set(userRef,{name:latestName,score:s,t:Date.now()});}
 };
 let lbUnsub=null;
+window.fetchTop3=()=>{
+  const q=query(ref(db,`scores/${tKey}`),orderByChild('score'),limitToLast(3));
+  onValue(q,snap=>{
+    const el=document.getElementById('top3List');
+    if(!el)return;
+    if(!snap.exists()){el.innerHTML='<span style="color:var(--dim);font-size:12px;">기록 없음</span>';return;}
+    let arr=[];snap.forEach(c=>arr.push(c.val()));
+    arr.sort((a,b)=>b.score-a.score);
+    const medals=['🥇','🥈','🥉'];
+    const lt=(_T[_curLang]||_T.ko);
+    el.innerHTML=arr.slice(0,3).map((e,i)=>`<div class="top3-row"><span class="top3-medal">${medals[i]}</span><span class="top3-name">${e.name||'???'}</span><span class="top3-score">${e.score}${lt.scoreSuffix||'점'}</span></div>`).join('');
+  },{onlyOnce:true});
+};
 window.fbLeaderboard=myScore=>{
   if(lbUnsub){lbUnsub();lbUnsub=null;}
   const q=query(ref(db,`scores/${tKey}`),orderByChild('score'),limitToLast(20));
@@ -561,7 +597,7 @@ function loadSettingsData(){try{const s=JSON.parse(localStorage.getItem('n10_set
 function saveSettingsData(){localStorage.setItem('n10_settings',JSON.stringify(settings));}
 function applyTheme(id){const t=COLOR_THEMES.find(t=>t.id===id)||COLOR_THEMES[0];const r=document.documentElement.style;if(!settings.night){r.setProperty('--bg',t.bg);r.setProperty('--border',t.border);}r.setProperty('--pink',t.pink);r.setProperty('--pink-dark',t.pinkDark);}
 function applyNight(on){document.body.classList.toggle('night',on);if(!on)applyTheme(settings.theme);else{document.documentElement.style.removeProperty('--bg');document.documentElement.style.removeProperty('--border');}}
-function openSettings(){
+function openSettings(){const updateLangOpts=()=>{['ko','en','ja'].forEach(l=>{const el=document.getElementById('sl_'+l);if(el)el.classList.toggle('active',l===_curLang);});};updateLangOpts();
   ['bgm','sfx','vib','night'].forEach(k=>{const el=document.getElementById('toggle'+k.charAt(0).toUpperCase()+k.slice(1));if(el)el.className='toggle-btn'+(settings[k]?' on':'');});
   document.getElementById('skinGrid').innerHTML=CAT_SKINS.map(s=>{const locked=!isSkinUnlocked(s.id);const hint=locked?(SKIN_UNLOCK[s.id]?.hint||''):'';return`<div class="skin-opt${settings.skin===s.id?' active':''}${locked?' locked':''}" onclick="${locked?`showToast('🔒 ${hint}');return;`:``}selectSkin('${s.id}')" style="background:${s.color}" data-skin="${s.id}">${s.pure?'':'<div class="s-emoji">'+s.emojis[1]+'</div>'}<div class="s-num" style="${s.pure?'font-size:26px':''}">3</div></div>`;}).join('');
   document.getElementById('themeGrid').innerHTML=COLOR_THEMES.map(t=>`<div class="theme-opt${settings.theme===t.id?' active':''}" onclick="selectTheme('${t.id}')" style="background:${t.bg};border-color:${settings.theme===t.id?t.pink:'#f0d4f0'}" data-theme="${t.id}"><span style="font-size:20px">${t.label}</span></div>`).join('');
@@ -608,7 +644,8 @@ function buildGrid(){
   const g=document.getElementById('grid');g.innerHTML='';
   const newG=g.cloneNode(false);g.parentNode.replaceChild(newG,g);
   newG.addEventListener('click',e=>{const cell=e.target.closest('.grid-cell');if(!cell)return;const pos=cell.dataset.pos.split('-');onTap(+pos[0],+pos[1]);});
-  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){const cell=document.createElement('div');cell.className='grid-cell';cell.dataset.pos=`${r}-${c}`;const t=board[r][c];if(t){const el=document.createElement('div');el.className=`tile t${t.v}`;el.dataset.id=t.id;el.innerHTML=makeTileInner(t);cell.appendChild(el);}newG.appendChild(cell);}
+  const selIds=new Set(sel.map(s=>s.id));
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){const cell=document.createElement('div');cell.className='grid-cell';cell.dataset.pos=`${r}-${c}`;const t=board[r][c];if(t){const el=document.createElement('div');el.className=`tile t${t.v}${selIds.has(t.id)?' selected':''}`;el.dataset.id=t.id;el.innerHTML=makeTileInner(t);cell.appendChild(el);}newG.appendChild(cell);}
 }
 function renderSelection(){for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){const cell=getCell(r,c);if(!cell)continue;const tile=cell.querySelector('.tile');if(!tile)continue;tile.classList.toggle('selected',sel.some(s=>s.r===r&&s.c===c));}}
 function animateRemoveAndFill(rem){
@@ -653,7 +690,26 @@ function startPressure(){
   const fire=()=>{clearTimeout(pTimer);if(!running){pressureActive=false;return;}pushRow();pTimer=setTimeout(fire,{mid:4000,hard:2500}[phase()]||2500);};
   pTimer=setTimeout(fire,{mid:4000,hard:2500}[p]||4000);
 }
-function pushRow(){for(let r=ROWS-1;r>0;r--)board[r]=[...board[r-1]];board[0]=[];for(let c=0;c<COLS;c++)board[0][c]=mkTile();render();}
+function pushRow(){
+  for(let r=ROWS-1;r>0;r--)board[r]=[...board[r-1]];
+  board[0]=[];
+  for(let c=0;c<COLS;c++)board[0][c]=mkTile();
+  const vals=[];
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++)if(board[r][c])vals.push(board[r][c].v);
+  const cnt=new Array(10).fill(0);vals.forEach(v=>cnt[v]++);
+  let ok=false;
+  for(let a=1;a<=9;a++){const b=10-a;if(b>=1&&b<=9&&(a!==b?cnt[a]&&cnt[b]:cnt[a]>=2)){ok=true;break;}}
+  if(!ok){
+    const flat=[];for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++)if(board[r][c])flat.push({r,c});
+    const t=flat[Math.floor(Math.random()*flat.length)];
+    const pairs=[[1,9],[2,8],[3,7],[4,6],[5,5]];
+    const p=pairs[Math.floor(Math.random()*pairs.length)];
+    board[t.r][t.c]={v:p[0],id:tid++};
+    const t2=flat[Math.floor(Math.random()*flat.length)];
+    board[t2.r][t2.c]={v:p[1],id:tid++};
+  }
+  render();
+}
 function startOpp(){clearInterval(oppTimer);oppScore=0;const target=window._todayBest||randBotTarget();const botName=randBotName();const oppNameEl=document.getElementById('pvpOppName');if(oppNameEl)oppNameEl.textContent=botName;oppTimer=setInterval(()=>{if(!running){clearInterval(oppTimer);return;}const elapsed=DURATION-timeLeft;oppScore=Math.floor((target/DURATION)*elapsed*(0.85+Math.random()*.3));updatePVP();},1000);}
 function updatePVP(){const max=300;document.getElementById('pvpMyBar').style.width=Math.min(100,score/max*100)+'%';document.getElementById('pvpOppBar').style.width=Math.min(100,oppScore/max*100)+'%';document.getElementById('pvpMyPts').textContent=score;document.getElementById('pvpOppPts').textContent=oppScore;const ahead=score>oppScore;document.getElementById('pvpStatus').textContent=ahead?'🔥':'💨';document.getElementById('pvpStatus').style.color=ahead?'var(--mint)':'#ff9040';}
 function checkMS(){const lt_ms=(_T[_curLang]||_T.ko);
@@ -745,9 +801,9 @@ function isSkinUnlocked(id){const u=SKIN_UNLOCK[id];if(!u)return true;return u.u
 </script>
 <script>
 const _T={
-  ko:{logoTitle:'냥10',logoSub:'NUMBER PUZZLE',liveTxt:'지금 플레이 중',playerUnit:'명',dcBadge:'📅 오늘의 미션',rule1:'고양이 탭 → 합이 <strong>10</strong>이 되면 냥~✨',rule2:'시간 지날수록 고양이 쏟아짐!',rule3:'60초 안에 최대한 많이!',startBtn:'🐾 START!',resTop:'GAME OVER',retryBtn:'🔄 다시하기',retryHint:'화면 아무데나 탭해도 시작해요 ⚡',shareLabel:'공유하기',shareLabels:['X','Threads','카톡','링크복사','더보기'],bestBurst:'🏆 최고점 경신!',tutTitle:'이렇게 해봐요!',tutS1:'1️⃣ 숫자 고양이를 <b>탭</b>해서 선택',tutS2:'2️⃣ 선택한 합이 <b>10</b>이 되면 자동 제거!',tutS3:'3️⃣ 한번에 3개 이상 → <b>보너스 점수 🔥</b>',tutS4:'4️⃣ 연속으로 성공하면 <b>콤보!</b>',tutBtn:'시작하기 🐾',cdSub:'고양이들 출동 준비 중...',dc:['콤보 5 달성하기 🔥','100점 달성하기 💯','타일 20개 제거하기 🐱','200점 달성하기 👑','3콤보 두 번 달성하기 ⚡'],sumPick:'고양이를 골라봐 🐱',sumDone:'완성! ',sumMore1:'더면 돼!',sumMore2:'더! ⚡보너스',rush3:'⚡ 막판이다!',rush2:'🔥 속도를 올려!',rush1:'💨 집중!',shareAch:'냥10에서 ',shareScore:'점 달성! ',shareChallenge:'나보다 잘하면 인정 🐾',shareTag:'#냥10 #숫자퍼즐',grades:['냥알바생','집사 지망생','집사계 중간보스','집사계 레전드','냥신내림 받은 자','환생한 고양이'],noRecord:'아직 기록 없음',meLabel:'나',rankTxt:'전체 {total}명 중 상위 {pct}% · {rank}위',scoreSuffix:'점',settingsTitle:'⚙️ 설정',nickname:'😺 닉네임',nickPlaceholder:'닉네임 입력 (최대 12자)',saveBtn:'저장',nightMode:'🌙 나이트 모드',bgmLabel:'🎵 배경음악',sfxLabel:'🔊 효과음',vibLabel:'📳 진동',skinLabel:'🐱 고양이 스킨',themeLabel:'🎨 색상 테마',saveAll:'저장 💾',changeNick:'닉네임 변경',privacy:'개인정보처리방침',terms:'이용약관',coffee:'🧋 커피 한 잔',sumLbl:'합계',resSub1:'타일',resSub2:'개 제거',lbTitle:'🏆 오늘의 TOP 5',loading:'로딩 중...',restartTitle:'다시 시작할까요?',restartSub:'지금 점수가 사라져요!',cancel:'취소',restartBtn:'다시시작!',nickEmpty:'닉네임을 입력해줘요 🐱',nickSaved:'닉네임 저장! 😺 ',bestGapMore:'최고점까지 딱 {n}점! 한 번만 더! 🔥',bestGapNew:'🏆 최고점 경신!',dcDone:'오늘의 미션 완료!',combos:{3:'🔥 콤보 3!',5:'💣 콤보 5!!',10:'🌟 콤보 10!!!'},cntLabel:'개',secUnit:'초',nyang:'냥~✨',comboWord:'콤보',wrongTap:'야옹?!',copyOk:'클립보드에 복사됐어요! 📋',copyFail:'복사 실패 😢',kakaoOk:'카톡에 붙여넣기 해주세요! 📋',kakaoFail:'링크를 복사해서 카톡에 붙여넣으세요!',privacyTitle:'🔒 개인정보처리방침',termsTitle:'📄 이용약관',confirm:'확인 ✅'},
-  en:{logoTitle:'Nyan10',logoSub:'NUMBER PUZZLE',liveTxt:'Now Playing',playerUnit:' online',dcBadge:'📅 Daily Mission',rule1:'Tap cats → Sum to <strong>10</strong> and nyan~✨',rule2:'More cats drop as time passes!',rule3:'Score as much as you can in 60s!',startBtn:'🐾 START!',resTop:'GAME OVER',retryBtn:'🔄 Play Again',retryHint:'Tap anywhere to start ⚡',shareLabel:'SHARE',shareLabels:['X','Threads','KakaoTalk','Copy Link','More'],bestBurst:'🏆 New High Score!',tutTitle:'How to Play!',tutS1:'1️⃣ <b>Tap</b> number cats to select',tutS2:'2️⃣ Auto-removed when sum hits <b>10</b>!',tutS3:'3️⃣ 3+ at once → <b>Bonus score 🔥</b>',tutS4:'4️⃣ Consecutive success = <b>Combo!</b>',tutBtn:"Let's Go 🐾",cdSub:'Cats getting ready...',dc:['Achieve Combo 5 🔥','Score 100 points 💯','Clear 20 tiles 🐱','Score 200 points 👑','Achieve Combo 3 twice ⚡'],sumPick:'Pick a cat 🐱',sumDone:'Perfect! ',sumMore1:'more to go!',sumMore2:'more! ⚡Bonus',rush3:'⚡ Final push!',rush2:'🔥 Speed it up!',rush1:'💨 Focus!',shareAch:'I scored ',shareScore:' on Nyan10! ',shareChallenge:'Beat me if you can 🐾',shareTag:'#Nyan10 #NumberPuzzle',grades:['Nyan Rookie','Aspiring Butler','Mid-Boss Butler','Legendary Butler','Blessed by Nyan Gods','Reincarnated Cat'],noRecord:'No records yet',meLabel:'me',rankTxt:'Top {pct}% of {total} · #{rank}',scoreSuffix:' pts',settingsTitle:'⚙️ Settings',nickname:'😺 Nickname',nickPlaceholder:'Enter nickname (max 12 chars)',saveBtn:'Save',nightMode:'🌙 Night Mode',bgmLabel:'🎵 BGM',sfxLabel:'🔊 Sound FX',vibLabel:'📳 Vibration',skinLabel:'🐱 Cat Skin',themeLabel:'🎨 Color Theme',saveAll:'Save 💾',changeNick:'Change Nickname',privacy:'Privacy Policy',terms:'Terms of Service',coffee:'🧋 Buy me a coffee',sumLbl:'SUM',resSub1:'',resSub2:' tiles cleared',lbTitle:'🏆 Today\'s TOP 5',loading:'Loading...',restartTitle:'Restart?',restartSub:'Your current score will be lost!',cancel:'Cancel',restartBtn:'Restart!',nickEmpty:'Please enter a nickname 🐱',nickSaved:'Nickname saved! 😺 ',bestGapMore:'Just {n} more to beat your best! 🔥',bestGapNew:'🏆 New High Score!',dcDone:'Daily Mission Clear!',combos:{3:'🔥 Combo 3!',5:'💣 Combo 5!!',10:'🌟 Combo 10!!!'},cntLabel:'',secUnit:'s',nyang:'Nyan~✨',comboWord:'COMBO',wrongTap:'Meow?!',copyOk:'Copied! 📋',copyFail:'Copy failed 😢',kakaoOk:'Paste in KakaoTalk! 📋',kakaoFail:'Please copy the link manually!',privacyTitle:'🔒 Privacy Policy',termsTitle:'📄 Terms of Service',confirm:'Confirm ✅'},
-  ja:{logoTitle:'にゃん10',logoSub:'ナンバーパズル',liveTxt:'プレイ中',playerUnit:'人',dcBadge:'📅 今日のミッション',rule1:'ねこをタップ → 合計<strong>10</strong>でにゃん~✨',rule2:'時間が経つほどねこが降ってくる！',rule3:'60秒でできるだけたくさん！',startBtn:'🐾 スタート！',resTop:'ゲームオーバー',retryBtn:'🔄 もう一度',retryHint:'画面のどこでもタップでスタート ⚡',shareLabel:'シェア',shareLabels:['X','Threads','カカオ','リンクコピー','もっと'],bestBurst:'🏆 ハイスコア更新！',tutTitle:'あそびかた！',tutS1:'1️⃣ 数字ねこを<b>タップ</b>して選ぶ',tutS2:'2️⃣ 合計が<b>10</b>になったら自動消去！',tutS3:'3️⃣ 一度に3個以上 → <b>ボーナス点 🔥</b>',tutS4:'4️⃣ 連続成功で<b>コンボ！</b>',tutBtn:'はじめる 🐾',cdSub:'ねこたち出動準備中...',dc:['コンボ5達成 🔥','100点達成 💯','タイル20個消去 🐱','200点達成 👑','コンボ3を2回達成 ⚡'],sumPick:'ねこを選んでね 🐱',sumDone:'完成！',sumMore1:'でOK！',sumMore2:'でボーナス！⚡',rush3:'⚡ ラストスパート！',rush2:'🔥 加速して！',rush1:'💨 集中！',shareAch:'にゃん10で',shareScore:'点達成！',shareChallenge:'勝てるかな🐾',shareTag:'#にゃん10 #ナンバーパズル',grades:['にゃんバイト','執事見習い','執事界の中ボス','執事界のレジェンド','にゃん神降臨','転生した猫'],noRecord:'まだ記録なし',meLabel:'自分',rankTxt:'{total}人中上位{pct}% · {rank}位',scoreSuffix:'点',settingsTitle:'⚙️ 設定',nickname:'😺 ニックネーム',nickPlaceholder:'ニックネーム入力（最大12文字）',saveBtn:'保存',nightMode:'🌙 ナイトモード',bgmLabel:'🎵 BGM',sfxLabel:'🔊 効果音',vibLabel:'📳 バイブ',skinLabel:'🐱 ねこスキン',themeLabel:'🎨 カラーテーマ',saveAll:'保存 💾',changeNick:'ニックネーム変更',privacy:'プライバシーポリシー',terms:'利用規約',coffee:'🧋 コーヒーを奢る',sumLbl:'合計',resSub1:'タイル',resSub2:'個消去',lbTitle:'🏆 今日のTOP 5',loading:'読込中...',restartTitle:'リスタートしますか？',restartSub:'今のスコアが消えます！',cancel:'キャンセル',restartBtn:'リスタート！',nickEmpty:'ニックネームを入力してください 🐱',nickSaved:'ニックネーム保存！😺 ',bestGapMore:'あと{n}点でベスト更新！🔥',bestGapNew:'🏆 ハイスコア更新！',dcDone:'本日のミッション達成！',combos:{3:'🔥 コンボ 3!',5:'💣 コンボ 5!!',10:'🌟 コンボ 10!!!'},cntLabel:'個',secUnit:'秒',nyang:'にゃん~✨',comboWord:'コンボ',wrongTap:'にゃん?!',copyOk:'コピーしました！ 📋',copyFail:'コピー失敗 😢',kakaoOk:'カカオトークに貼り付けてください！ 📋',kakaoFail:'リンクをコピーして貼り付けてください！',privacyTitle:'🔒 プライバシーポリシー',termsTitle:'📄 利用規約',confirm:'確認 ✅'}
+  ko:{logoTitle:'냥10',logoSub:'NUMBER PUZZLE',liveTxt:'지금 플레이 중',playerUnit:'명',dcBadge:'📅 오늘의 미션',rule1:'고양이 탭 → 합이 <strong>10</strong>이 되면 냥~✨',rule2:'시간 지날수록 고양이 쏟아짐!',rule3:'60초 안에 최대한 많이!',startBtn:'🐾 START!',resTop:'GAME OVER',retryBtn:'🔄 다시하기',retryHint:'화면 아무데나 탭해도 시작해요 ⚡',shareLabel:'공유하기',shareLabels:['X','Threads','카톡','링크복사','더보기'],bestBurst:'🏆 최고점 경신!',tutTitle:'이렇게 해봐요!',tutS1:'1️⃣ 숫자 고양이를 <b>탭</b>해서 선택',tutS2:'2️⃣ 선택한 합이 <b>10</b>이 되면 자동 제거!',tutS3:'3️⃣ 한번에 3개 이상 → <b>보너스 점수 🔥</b>',tutS4:'4️⃣ 연속으로 성공하면 <b>콤보!</b>',tutBtn:'시작하기 🐾',cdSub:'고양이들 출동 준비 중...',dc:['콤보 5 달성하기 🔥','100점 달성하기 💯','타일 20개 제거하기 🐱','200점 달성하기 👑','3콤보 두 번 달성하기 ⚡'],sumPick:'고양이를 골라봐 🐱',sumDone:'완성! ',sumMore1:'더면 돼!',sumMore2:'더! ⚡보너스',rush3:'⚡ 막판이다!',rush2:'🔥 속도를 올려!',rush1:'💨 집중!',shareAch:'냥10에서 ',shareScore:'점 달성! ',shareChallenge:'나보다 잘하면 인정 🐾',shareTag:'#냥10 #숫자퍼즐',grades:['냥알바생','집사 지망생','집사계 중간보스','집사계 레전드','냥신내림 받은 자','환생한 고양이'],noRecord:'아직 기록 없음',meLabel:'나',rankTxt:'전체 {total}명 중 상위 {pct}% · {rank}위',scoreSuffix:'점',settingsTitle:'⚙️ 설정',nickname:'😺 닉네임',nickPlaceholder:'닉네임 입력 (최대 12자)',saveBtn:'저장',nightMode:'🌙 나이트 모드',bgmLabel:'🎵 배경음악',sfxLabel:'🔊 효과음',vibLabel:'📳 진동',skinLabel:'🐱 고양이 스킨',themeLabel:'🎨 색상 테마',saveAll:'저장 💾',changeNick:'닉네임 변경',privacy:'개인정보처리방침',terms:'이용약관',coffee:'🧋 커피 한 잔',sumLbl:'합계',resSub1:'타일',resSub2:'개 제거',lbTitle:'🏆 오늘의 TOP 5',loading:'로딩 중...',restartTitle:'다시 시작할까요?',restartSub:'지금 점수가 사라져요!',cancel:'취소',restartBtn:'다시시작!',nickEmpty:'닉네임을 입력해줘요 🐱',nickSaved:'닉네임 저장! 😺 ',bestGapMore:'최고점까지 딱 {n}점! 한 번만 더! 🔥',bestGapNew:'🏆 최고점 경신!',dcDone:'오늘의 미션 완료!',combos:{3:'🔥 콤보 3!',5:'💣 콤보 5!!',10:'🌟 콤보 10!!!'},cntLabel:'개',secUnit:'초',nyang:'냥~✨',comboWord:'콤보',rescued:'🐾 냥! (구출)',wrongTap:'야옹?!',copyOk:'클립보드에 복사됐어요! 📋',copyFail:'복사 실패 😢',kakaoOk:'카톡에 붙여넣기 해주세요! 📋',kakaoFail:'링크를 복사해서 카톡에 붙여넣으세요!',privacyTitle:'🔒 개인정보처리방침',termsTitle:'📄 이용약관',confirm:'확인 ✅'},
+  en:{logoTitle:'Nyan10',logoSub:'NUMBER PUZZLE',liveTxt:'Now Playing',playerUnit:' online',dcBadge:'📅 Daily Mission',rule1:'Tap cats → Sum to <strong>10</strong> and nyan~✨',rule2:'More cats drop as time passes!',rule3:'Score as much as you can in 60s!',startBtn:'🐾 START!',resTop:'GAME OVER',retryBtn:'🔄 Play Again',retryHint:'Tap anywhere to start ⚡',shareLabel:'SHARE',shareLabels:['X','Threads','KakaoTalk','Copy Link','More'],bestBurst:'🏆 New High Score!',tutTitle:'How to Play!',tutS1:'1️⃣ <b>Tap</b> number cats to select',tutS2:'2️⃣ Auto-removed when sum hits <b>10</b>!',tutS3:'3️⃣ 3+ at once → <b>Bonus score 🔥</b>',tutS4:'4️⃣ Consecutive success = <b>Combo!</b>',tutBtn:"Let's Go 🐾",cdSub:'Cats getting ready...',dc:['Achieve Combo 5 🔥','Score 100 points 💯','Clear 20 tiles 🐱','Score 200 points 👑','Achieve Combo 3 twice ⚡'],sumPick:'Pick a cat 🐱',sumDone:'Perfect! ',sumMore1:'more to go!',sumMore2:'more! ⚡Bonus',rush3:'⚡ Final push!',rush2:'🔥 Speed it up!',rush1:'💨 Focus!',shareAch:'I scored ',shareScore:' on Nyan10! ',shareChallenge:'Beat me if you can 🐾',shareTag:'#Nyan10 #NumberPuzzle',grades:['Nyan Rookie','Aspiring Butler','Mid-Boss Butler','Legendary Butler','Blessed by Nyan Gods','Reincarnated Cat'],noRecord:'No records yet',meLabel:'me',rankTxt:'Top {pct}% of {total} · #{rank}',scoreSuffix:' pts',settingsTitle:'⚙️ Settings',nickname:'😺 Nickname',nickPlaceholder:'Enter nickname (max 12 chars)',saveBtn:'Save',nightMode:'🌙 Night Mode',bgmLabel:'🎵 BGM',sfxLabel:'🔊 Sound FX',vibLabel:'📳 Vibration',skinLabel:'🐱 Cat Skin',themeLabel:'🎨 Color Theme',saveAll:'Save 💾',changeNick:'Change Nickname',privacy:'Privacy Policy',terms:'Terms of Service',coffee:'🧋 Buy me a coffee',sumLbl:'SUM',resSub1:'',resSub2:' tiles cleared',lbTitle:'🏆 Today\'s TOP 5',loading:'Loading...',restartTitle:'Restart?',restartSub:'Your current score will be lost!',cancel:'Cancel',restartBtn:'Restart!',nickEmpty:'Please enter a nickname 🐱',nickSaved:'Nickname saved! 😺 ',bestGapMore:'Just {n} more to beat your best! 🔥',bestGapNew:'🏆 New High Score!',dcDone:'Daily Mission Clear!',combos:{3:'🔥 Combo 3!',5:'💣 Combo 5!!',10:'🌟 Combo 10!!!'},cntLabel:'',secUnit:'s',nyang:'Nyan~✨',comboWord:'COMBO',rescued:'🐾 Rescue!',wrongTap:'Meow?!',copyOk:'Copied! 📋',copyFail:'Copy failed 😢',kakaoOk:'Paste in KakaoTalk! 📋',kakaoFail:'Please copy the link manually!',privacyTitle:'🔒 Privacy Policy',termsTitle:'📄 Terms of Service',confirm:'Confirm ✅'},
+  ja:{logoTitle:'にゃん10',logoSub:'ナンバーパズル',liveTxt:'プレイ中',playerUnit:'人',dcBadge:'📅 今日のミッション',rule1:'ねこをタップ → 合計<strong>10</strong>でにゃん~✨',rule2:'時間が経つほどねこが降ってくる！',rule3:'60秒でできるだけたくさん！',startBtn:'🐾 スタート！',resTop:'ゲームオーバー',retryBtn:'🔄 もう一度',retryHint:'画面のどこでもタップでスタート ⚡',shareLabel:'シェア',shareLabels:['X','Threads','カカオ','リンクコピー','もっと'],bestBurst:'🏆 ハイスコア更新！',tutTitle:'あそびかた！',tutS1:'1️⃣ 数字ねこを<b>タップ</b>して選ぶ',tutS2:'2️⃣ 合計が<b>10</b>になったら自動消去！',tutS3:'3️⃣ 一度に3個以上 → <b>ボーナス点 🔥</b>',tutS4:'4️⃣ 連続成功で<b>コンボ！</b>',tutBtn:'はじめる 🐾',cdSub:'ねこたち出動準備中...',dc:['コンボ5達成 🔥','100点達成 💯','タイル20個消去 🐱','200点達成 👑','コンボ3を2回達成 ⚡'],sumPick:'ねこを選んでね 🐱',sumDone:'完成！',sumMore1:'でOK！',sumMore2:'でボーナス！⚡',rush3:'⚡ ラストスパート！',rush2:'🔥 加速して！',rush1:'💨 集中！',shareAch:'にゃん10で',shareScore:'点達成！',shareChallenge:'勝てるかな🐾',shareTag:'#にゃん10 #ナンバーパズル',grades:['にゃんバイト','執事見習い','執事界の中ボス','執事界のレジェンド','にゃん神降臨','転生した猫'],noRecord:'まだ記録なし',meLabel:'自分',rankTxt:'{total}人中上位{pct}% · {rank}位',scoreSuffix:'点',settingsTitle:'⚙️ 設定',nickname:'😺 ニックネーム',nickPlaceholder:'ニックネーム入力（最大12文字）',saveBtn:'保存',nightMode:'🌙 ナイトモード',bgmLabel:'🎵 BGM',sfxLabel:'🔊 効果音',vibLabel:'📳 バイブ',skinLabel:'🐱 ねこスキン',themeLabel:'🎨 カラーテーマ',saveAll:'保存 💾',changeNick:'ニックネーム変更',privacy:'プライバシーポリシー',terms:'利用規約',coffee:'🧋 コーヒーを奢る',sumLbl:'合計',resSub1:'タイル',resSub2:'個消去',lbTitle:'🏆 今日のTOP 5',loading:'読込中...',restartTitle:'リスタートしますか？',restartSub:'今のスコアが消えます！',cancel:'キャンセル',restartBtn:'リスタート！',nickEmpty:'ニックネームを入力してください 🐱',nickSaved:'ニックネーム保存！😺 ',bestGapMore:'あと{n}点でベスト更新！🔥',bestGapNew:'🏆 ハイスコア更新！',dcDone:'本日のミッション達成！',combos:{3:'🔥 コンボ 3!',5:'💣 コンボ 5!!',10:'🌟 コンボ 10!!!'},cntLabel:'個',secUnit:'秒',nyang:'にゃん~✨',comboWord:'コンボ',rescued:'🐾 レスキュー!',wrongTap:'にゃん?!',copyOk:'コピーしました！ 📋',copyFail:'コピー失敗 😢',kakaoOk:'カカオトークに貼り付けてください！ 📋',kakaoFail:'リンクをコピーして貼り付けてください！',privacyTitle:'🔒 プライバシーポリシー',termsTitle:'📄 利用規約',confirm:'確認 ✅'}
 };
 let _curLang=localStorage.getItem('n10_lang')||'ko';
 function nLang(l){
@@ -807,7 +863,7 @@ function nLang(l){
   if($('nPrivacyConfirm'))$('nPrivacyConfirm').textContent=t.confirm;
   if(typeof updateLegalContent==='function')updateLegalContent(l);
 }
-document.addEventListener('DOMContentLoaded',()=>{nLang(_curLang);if(typeof updateLegalContent==='function')updateLegalContent(_curLang);});
+document.addEventListener('DOMContentLoaded',()=>{nLang(_curLang);if(typeof updateLegalContent==='function')updateLegalContent(_curLang);setTimeout(()=>{if(typeof fetchTop3==='function')fetchTop3();},800);});
 </script>
 
 <script>
@@ -883,6 +939,7 @@ const _LEGAL = {
 `
   }
 };
+
 function updateLegalContent(lang) {
   const l = _LEGAL[lang] || _LEGAL.ko;
   const tc = documen
