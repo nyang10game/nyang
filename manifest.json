@@ -4,18 +4,52 @@
   "dir": "ltr",
   "display": "standalone",
   "name": "냥10 - 고양이 숫자 퍼즐",
-  "orientation": "any",
-  "scope": "/",
   "short_name": "냥10",
+  "orientation": "portrait",
+  "scope": "/",
   "start_url": "/",
+  "id": "com.nyang10.game",
   "theme_color": "#ff6eb4",
+  "lang": "ko",
+  "categories": ["games", "puzzle"],
+  "prefer_related_applications": false,
+  "iarc_rating_id": "YOUR_IARC_ID_HERE",
   "icons": [
     {
       "src": "https://nyang10game.github.io/nyang/og-image.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "https://nyang10game.github.io/nyang/og-image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "id": "com.nyang10.game"
+  "screenshots": [
+    {
+      "src": "screenshots/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "냥10 게임 화면"
+    },
+    {
+      "src": "screenshots/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "냥10 데스크탑 화면"
+    }
+  ],
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
 }
