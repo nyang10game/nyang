@@ -96,8 +96,8 @@ body.night .restart-box{background:#2a1f35;}
 .pvp-name{font-size:10px;font-weight:800;color:var(--dim);white-space:nowrap;}
 .pvp-pts{font-size:10px;font-weight:900;color:var(--text);white-space:nowrap;}
 .pvp-track{flex:1;height:5px;background:var(--border);border-radius:4px;overflow:hidden;position:relative;}
-.pvp-me{height:100%;background:linear-gradient(90deg,var(--pink),#ff9fd3);border-radius:4px;transition:width .4s ease;width:0%;position:absolute;top:0;left:0;}
-.pvp-opp{height:100%;background:linear-gradient(90deg,#a0c4ff,#c5b8ff);border-radius:4px;transition:width .4s ease;width:0%;position:absolute;top:0;left:0;}
+.pvp-me{height:100%;background:linear-gradient(90deg,var(--pink),#ff9fd3);border-radius:4px;transition:width .4s ease;width:0%;position:absolute;top:0;left:0;z-index:2;} /* [BUG FIX #2] 내 바가 항상 위에 */
+.pvp-opp{height:100%;background:linear-gradient(90deg,#a0c4ff,#c5b8ff);border-radius:4px;transition:width .4s ease;width:0%;position:absolute;top:0;left:0;z-index:1;}
 .pvp-status{font-size:10px;font-weight:900;white-space:nowrap;}
 .sum-bar{width:100%;height:38px;background:white;border-radius:12px;border:2px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 12px;margin-bottom:4px;box-shadow:0 2px 10px var(--shadow);transition:border-color .2s,background .2s;}
 .sum-bar.exact{border-color:var(--mint);background:#f0fffd;}
@@ -513,10 +513,11 @@ const CAT_EMOJIS=['','😺','😸','😻','🐱','😹','🙀','😿','😾','�
 function getCatEmoji(v){const skin=window._curSkin||{emojis:CAT_EMOJIS};if(skin.pure)return '';return skin.emojis[v]||CAT_EMOJIS[v]||'🐱';}
 const W={easy:[0,4,5,10,11,13,11,8,4,2],mid:[0,4,5,9,11,12,10,6,3,2],hard:[0,3,4,8,10,12,9,6,4,2]};
 const GRADES=[{min:0,e:'😵',t:'냥알바생',bg:'#e8f4ff',c:'#4a90c4'},{min:150,e:'🫠',t:'집사 지망생',bg:'#fff3e8',c:'#d07020'},{min:350,e:'😤',t:'집사계 중간보스',bg:'#ffe8f5',c:'#d94d96'},{min:600,e:'🤩',t:'집사계 레전드',bg:'#f3e8ff',c:'#7c3aed'},{min:900,e:'🫡',t:'냥신내림 받은 자',bg:'#fff8d6',c:'#b08000'},{min:2000,e:'👼',t:'환생한 고양이',bg:'#ffe0f0',c:'#c0006a'}];
+window.GRADES=GRADES; // [BUG FIX #1] module script에서 const는 window에 안 붙으므로 명시적으로 등록
 const SMS=[{v:50,m:'🎉 50점!'},{v:100,m:'💥 100점!!'},{v:200,m:'👑 200점 전설'}];
 const CMS=[{v:3,m:'🔥 콤보 3!'},{v:5,m:'💣 콤보 5!!'},{v:10,m:'🌟 콤보 10!!!'}];
 
-let board=[],sel=[],score=0,cleared=0,combo=0,timeLeft=DURATION,running=false,ticker=null,cTimer=null,pTimer=null,oppTimer=null,best=+localStorage.getItem('n10best')||0,tid=0,dSMS=new Set(),dCMS=new Set(),oppScore=0,dc3hits=0;
+let board=[],sel=[],score=0,cleared=0,combo=0,timeLeft=DURATION,running=false,ticker=null,cTimer=null,pTimer=null,oppTimer=null,best=+localStorage.getItem('n10best')||0,tid=0,dSMS=new Set(),dCMS=new Set(),oppScore=0,dc3hits=0,pressureActive=false; // [BUG FIX #3] pressureActive 플래그 추가
 
 function wrand(w){let t=w.reduce((a,b)=>a+b,0),r=Math.random()*t;for(let i=1;i<=9;i++){r-=w[i];if(r<=0)return i;}return 5;}
 function phase(){if(timeLeft>40)return'easy';if(timeLeft>15)return'mid';return'hard';}
@@ -574,7 +575,13 @@ function doRemove(){
   if(cnt>=3||combo>=3){const cf=document.createElement('div');cf.className=(cnt>=5||combo>=5)?'combo5-flash':'combo-flash';if(cf.className==='combo-flash')cf.style.background=cnt>=3?'rgba(78,205,196,.25)':'rgba(255,110,180,.2)';document.body.appendChild(cf);setTimeout(()=>cf.remove(),600);}
   sndSuccess(Math.max(combo,cnt>=3?3:0));vibrate(cnt>=3?[30,15,30,15,60]:combo>=3?[40,20,40,20,60]:40);sel=[];checkMS();animateRemoveAndFill(rem);
 }
-function startPressure(){clearTimeout(pTimer);const p=phase();if(p==='easy')return;pTimer=setTimeout(()=>{if(running)pushRow();startPressure();},{mid:4000,hard:2500}[p]||4000);}
+function startPressure(){
+  if(pressureActive)return; // [BUG FIX #3] 이중 실행 방지
+  pressureActive=true;
+  clearTimeout(pTimer);const p=phase();if(p==='easy'){pressureActive=false;return;}
+  const fire=()=>{clearTimeout(pTimer);if(!running){pressureActive=false;return;}pushRow();pTimer=setTimeout(fire,{mid:4000,hard:2500}[phase()]||2500);};
+  pTimer=setTimeout(fire,{mid:4000,hard:2500}[p]||4000);
+}
 function pushRow(){for(let r=ROWS-1;r>0;r--)board[r]=[...board[r-1]];board[0]=[];for(let c=0;c<COLS;c++)board[0][c]=mkTile();render();}
 function startOpp(){clearInterval(oppTimer);oppScore=0;const target=window._todayBest||randBotTarget();const botName=randBotName();const oppNameEl=document.getElementById('pvpOppName');if(oppNameEl)oppNameEl.textContent=botName;oppTimer=setInterval(()=>{if(!running){clearInterval(oppTimer);return;}const elapsed=DURATION-timeLeft;oppScore=Math.floor((target/DURATION)*elapsed*(0.85+Math.random()*.3));updatePVP();},1000);}
 function updatePVP(){const max=300;document.getElementById('pvpMyBar').style.width=Math.min(100,score/max*100)+'%';document.getElementById('pvpOppBar').style.width=Math.min(100,oppScore/max*100)+'%';document.getElementById('pvpMyPts').textContent=score;document.getElementById('pvpOppPts').textContent=oppScore;const ahead=score>oppScore;document.getElementById('pvpStatus').textContent=ahead?'🔥':'💨';document.getElementById('pvpStatus').style.color=ahead?'var(--mint)':'#ff9040';}
@@ -602,10 +609,10 @@ function instantRetry(){sndStart();const ov=document.getElementById('cdOv'),ne=d
 function startGame(){
   if(typeof stopLbListen==='function')stopLbListen();
   stopBGM();clearInterval(ticker);clearTimeout(cTimer);clearTimeout(pTimer);clearInterval(oppTimer);stopTickSound();
-  board=[];sel=[];score=0;cleared=0;combo=0;timeLeft=DURATION;running=true;tid=0;oppScore=0;dSMS=new Set();dCMS=new Set();dc3hits=0;
+  board=[];sel=[];score=0;cleared=0;combo=0;timeLeft=DURATION;running=true;tid=0;oppScore=0;dSMS=new Set();dCMS=new Set();dc3hits=0;pressureActive=false; // [BUG FIX #3] 게임 재시작 시 플래그 리셋
   document.getElementById('panicBorder').className='panic-border';
   initBoard();updateScore();updateCombo();updateSumBar(0);updateTimer();updatePVP();showScreen('game');buildGrid();startOpp();startBGM();
-  ticker=setInterval(()=>{timeLeft--;updateTimer();if(timeLeft===40||timeLeft===15)startPressure();if(timeLeft>0&&timeLeft%10===0&&timeLeft<50){const rush=document.createElement('div');rush.className='milestone';rush.textContent=timeLeft<=15?'⚡ 막판이다!':timeLeft<=30?'🔥 속도를 올려!':'💨 집중!';document.body.appendChild(rush);setTimeout(()=>rush.remove(),1800);}if(timeLeft<=0){clearInterval(ticker);clearTimeout(pTimer);clearInterval(oppTimer);running=false;stopBGM();sndGameOver();checkDailyChallenge();setTimeout(showResult,150);}},1000);
+  ticker=setInterval(()=>{timeLeft--;updateTimer();if(timeLeft===40||timeLeft===15)startPressure();if(timeLeft>0&&timeLeft%10===0&&timeLeft<50){const rush=document.createElement('div');rush.className='milestone';rush.textContent=timeLeft<=15?'⚡ 막판이다!':timeLeft<=30?'🔥 속도를 올려!':'💨 집중!';document.body.appendChild(rush);setTimeout(()=>rush.remove(),1800);}if(timeLeft<=0){clearInterval(ticker);clearTimeout(pTimer);clearInterval(oppTimer);running=false;pressureActive=false;stopBGM();sndGameOver();checkDailyChallenge();setTimeout(showResult,150);}},1000);
 }
 function handleResultTap(e){if(e.target.tagName==='BUTTON'||e.target.tagName==='svg'||e.target.tagName==='path'||e.target.tagName==='circle'||e.target.closest('.lb-card')||e.target.closest('.share-section')||e.target.closest('button'))return;instantRetry();}
 function showResult(){
@@ -644,7 +651,7 @@ loadSettingsData();
 (()=>{const skin=CAT_SKINS&&CAT_SKINS.find(s=>s.id===settings.skin);if(skin)window._curSkin=skin;})();
 
 const DAILY_CHALLENGES=[
-  {id:'combo5',  text:'콤보 5 달성하기 🔥',    check:()=>Array.from(dCMS).includes(5)||combo>=5},
+  {id:'combo5',  text:'콤보 5 달성하기 🔥',    check:()=>dCMS.has(5)||combo>=5}, // [BUG FIX #4] Set.has() 사용
   {id:'score100',text:'100점 달성하기 💯',      check:()=>score>=100},
   {id:'tile20',  text:'타일 20개 제거하기 🐱',  check:()=>cleared>=20},
   {id:'score200',text:'200점 달성하기 👑',      check:()=>score>=200},
