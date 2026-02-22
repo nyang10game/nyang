@@ -226,6 +226,13 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
 body.night .lang-btn{background:#2a1f35;}
 body.night .lang-btn.active{background:var(--pink);color:white;}
 
+
+/* 🐾 발바닥 타일 */
+.ti{border-radius:16px!important;}
+.tile{border-radius:14px!important;}
+.grid-cell{border-radius:14px!important;}
+.t-paw{position:absolute;inset:0;opacity:0.15;pointer-events:none;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,5vw,28px);}
+
 /* ✨ 냥10 디자인 리뉴얼 */
 :root{--bg:#fffbfd;--border:#f8e4f4;--shadow:rgba(255,160,185,0.10);}
 body:not(.night)::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 10% -5%,#FFE8F4 0%,transparent 50%),radial-gradient(ellipse 55% 45% at 92% 105%,#FFE4D4 0%,transparent 50%),#fffbfd;z-index:-1;pointer-events:none;}
@@ -536,8 +543,8 @@ function stopBGM(){bgmRunning=false;if(bgmRafId){cancelAnimationFrame(bgmRafId);
 function toggleMute(){settings.sfx=!settings.sfx;sfxMuted=!settings.sfx;document.getElementById('muteBtn').textContent=sfxMuted?'🔇':'🔊';if(!sfxMuted)playTone(880,'sine',0.1,0.2);saveSettingsData();}
 
 const CAT_SKINS=[
-  {id:'classic',emojis:['','😺','😸','😻','🐱','😹','🙀','😿','😾','🐈'],color:'#ffadad',label:'기본'},
-  {id:'fancy',  emojis:['','🐱','🦁','🐯','🐻','🐼','🐨','🦊','🐺','🐸'],color:'#b5ead7',label:'동물'},
+  {id:'classic',emojis:['','😺','😸','😻','😽','😼','🐱','🙀','😿','😾'],color:'#ffadad',label:'기본'},
+  {id:'fancy',  emojis:['','🐈','🐈‍⬛','😺','😸','😻','😼','🙀','😿','😾'],color:'#b5ead7',label:'고양이'},
   {id:'star',   emojis:['','⭐','🌟','💫','✨','🌙','☀️','🌈','🍀','🎯'],color:'#a8e6f0',label:'별빛'},
   {id:'food',   emojis:['','🍎','🍊','🍋','🍇','🍓','🫐','🍑','🍒','🥝'],color:'#fdffb6',label:'과일'},
   {id:'pure',   emojis:['','','','','','','','','',''],color:'#c5b8ff',label:'숫자만',pure:true},
@@ -596,7 +603,7 @@ function initBoard(){
   for(let r=0;r<ROWS;r++){board[r]=[];for(let c=0;c<COLS;c++){if(pi<flat.length){board[r][c]={v:flat[pi++],id:tid++};}else{board[r][c]=mkTile(true);}}}
 }
 function getCell(r,c){return document.getElementById('gridWrap').querySelector(`.grid-cell[data-pos="${r}-${c}"]`);}
-function makeTileInner(t){const emoji=getCatEmoji(t.v);const isPure=window._curSkin&&window._curSkin.pure;return`<div class="ti">${emoji&&!isPure?`<div class="t-emoji">${emoji}</div>`:''}<span class="tnum"${isPure?' style="font-size:clamp(30px,9vw,42px)"':''}>${t.v}</span></div>`;}
+function makeTileInner(t){const emoji=getCatEmoji(t.v);const isPure=window._curSkin&&window._curSkin.pure;return`<div class="ti"><div class="t-paw">🐾</div>${emoji&&!isPure?`<div class="t-emoji">${emoji}</div>`:''}<span class="tnum"${isPure?' style="font-size:clamp(30px,9vw,42px)"':''}>${t.v}</span></div>`;}
 function buildGrid(){
   const g=document.getElementById('grid');g.innerHTML='';
   const newG=g.cloneNode(false);g.parentNode.replaceChild(newG,g);
