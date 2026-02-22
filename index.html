@@ -429,6 +429,9 @@ window.fbLeaderboard=myScore=>{
     if(!snap.exists()){document.getElementById('lbList').textContent='아직 기록 없음';return;}
     let arr=[];snap.forEach(c=>arr.push({...c.val(),uid:c.key}));
     arr.sort((a,b)=>b.score-a.score);
+    // [BUG FIX] Firebase 쓰기 타이밍 지연 시 내 점수 강제 반영
+    const myEntry=arr.find(e=>e.uid===DEVICE_ID);
+    if(!myEntry||myEntry.score<myScore){arr=arr.filter(e=>e.uid!==DEVICE_ID);arr.push({uid:DEVICE_ID,name:localStorage.getItem('n10_name')||DEVICE_NAME,score:myScore});arr.sort((a,b)=>b.score-a.score);}
     const top5=arr.slice(0,5);
     document.getElementById('lbList').innerHTML=top5.map((e,i)=>{
       const isMe=e.uid===DEVICE_ID;
