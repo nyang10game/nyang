@@ -205,7 +205,7 @@ body.night .share-btn{box-shadow:0 4px 0 rgba(0,0,0,.3);}
 body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);border-color:#aa8800;}
 .dc-badge{font-size:10px;font-weight:900;color:#a07000;white-space:nowrap;}
 .dc-text{flex:1;font-size:12px;font-weight:800;color:var(--text);}
-.dc-status{font-size:18px;}
+.dc-status{font-size:18px;font-weight:900;line-height:1;color:#ddd;}.dc-status.done{color:var(--mint);font-size:20px;}
 .skin-opt.locked{opacity:.5;position:relative;}
 .skin-opt.locked::after{content:'🔒';position:absolute;font-size:18px;top:50%;left:50%;transform:translate(-50%,-50%);}
 .best-burst{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;pointer-events:none;}
@@ -310,7 +310,7 @@ body:not(.night) .live-bar,body:not(.night) .rule-card{border-color:#fce0f0!impo
   <div class="daily-challenge" id="dailyChallenge">
     <span class="dc-badge" id="nDcBadge">📅 오늘의 미션</span>
     <span class="dc-text" id="dcText">로딩 중...</span>
-    <span class="dc-status" id="dcStatus">⬜</span>
+    <span class="dc-status" id="dcStatus">○</span>
   </div>
   <div class="rule-card">
     <div class="rule-item"><span class="ri">👆</span><span id="nRule1">고양이 탭 → 합이 <strong>10</strong>이 되면 냥~✨</span></div>
@@ -793,7 +793,7 @@ const DAILY_CHALLENGES=[
 ];
 function todayChallenge(){const d=new Date();const idx=(d.getFullYear()*366+d.getMonth()*31+d.getDate())%DAILY_CHALLENGES.length;return DAILY_CHALLENGES[idx];}
 function initDailyChallenge(){const ch=todayChallenge();const key='n10_dc_'+new Date().toDateString();const done=localStorage.getItem(key)==='1';document.getElementById('dcText').textContent=ch.text;document.getElementById('dcStatus').textContent=done?'✅':'⬜';}
-function checkDailyChallenge(){const ch=todayChallenge();const key='n10_dc_'+new Date().toDateString();if(localStorage.getItem(key)==='1')return;if(ch.check()){localStorage.setItem(key,'1');document.getElementById('dcStatus').textContent='✅';showMS('🎯 '+((_T[_curLang]||_T.ko).dcDone||'Mission Clear!'));}}
+function checkDailyChallenge(){const ch=todayChallenge();const key='n10_dc_'+new Date().toDateString();if(localStorage.getItem(key)==='1')return;if(ch.check()){localStorage.setItem(key,'1');const _dcEl=document.getElementById('dcStatus');_dcEl.textContent='✅';_dcEl.classList.add('done');showMS('🎯 '+((_T[_curLang]||_T.ko).dcDone||'Mission Clear!'));}}
 initDailyChallenge();
 
 const SKIN_UNLOCK={classic:{unlocked:true},fancy:{unlocked:()=>best>=500,hint:'BEST 500점 달성'},star:{unlocked:()=>best>=1000,hint:'BEST 1000점 달성'},food:{unlocked:()=>best>=1500,hint:'BEST 1500점 달성'},pure:{unlocked:()=>best>=2000,hint:'BEST 2000점 달성'}};
