@@ -1,0 +1,26 @@
+{
+  "background_color": "#ffffff",
+  "description": "고양이를 탭해서 합이 10이 되면 냥! 60초 안에 최대한 많이 제거하세요. 연속 성공하면 콤보 보너스까지! 🐱",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "냥10 - 고양이 숫자 퍼즐",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "냥10",
+  "start_url": "/",
+  "theme_color": "#ff6eb4",
+  "icons": [
+    {
+      "src": "https://nyang10game.github.io/nyang/og-image.png",
+      "isSquare": false,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 0,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    }
+  ],
+  "id": "com.nyang10.game"
+}
