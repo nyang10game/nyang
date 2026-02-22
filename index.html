@@ -220,68 +220,77 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
 .tut-step{width:100%;font-size:14px;font-weight:800;color:var(--text);background:var(--bg);border-radius:12px;padding:10px 14px;border:2px solid var(--border);}
 .tut-btn{width:100%;height:52px;border:none;border-radius:18px;background:linear-gradient(135deg,#ff6eb4,#ff9fd3);color:white;font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;cursor:pointer;box-shadow:0 6px 0 var(--pink-dark);margin-top:4px;}
 .tut-btn:active{transform:translateY(3px);box-shadow:0 3px 0 var(--pink-dark);}
+.lang-bar{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;gap:4px;}
+.lang-btn{height:28px;padding:0 10px;border-radius:20px;border:2px solid var(--border);background:white;font-family:'Nunito',sans-serif;font-size:11px;font-weight:900;cursor:pointer;color:var(--dim);transition:all .15s;box-shadow:0 2px 8px var(--shadow);}
+.lang-btn.active{background:var(--pink);border-color:var(--pink);color:white;}
+body.night .lang-btn{background:#2a1f35;}
+body.night .lang-btn.active{background:var(--pink);color:white;}
 </style>
 </head>
 <body>
 <div class="panic-border" id="panicBorder"></div>
 <div class="flash-ov" id="flashOv"></div>
+<div class="lang-bar"><button class="lang-btn active" id="lb_ko" onclick="nLang('ko')">한국어</button><button class="lang-btn" id="lb_en" onclick="nLang('en')">English</button><button class="lang-btn" id="lb_ja" onclick="nLang('ja')">日本語</button></div>
 <button class="settings-btn" onclick="openSettings()" title="설정">⚙️</button>
 <button class="mute-btn" id="muteBtn" onclick="toggleMute()" title="음소거">🔊</button>
 
 <div class="settings-modal hidden" id="settingsModal" onclick="closeSettingsBg(event)">
   <div class="settings-sheet">
-    <div class="settings-title">⚙️ 설정</div>
+    <div class="settings-title" id="nSettingsTitle">⚙️ 설정</div>
     <button class="settings-close" onclick="closeSettings()">✕</button>
     <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
-      <span class="settings-label">😺 닉네임</span>
+      <span class="settings-label" id="nNicknameLabel">😺 닉네임</span>
       <div style="display:flex;gap:8px;width:100%;">
-        <input id="nicknameInput" type="text" maxlength="12" placeholder="닉네임 입력 (최대 12자)"
+        <input id="nicknameInput" type="text" maxlength="12" id="nicknameInput" placeholder="닉네임 입력 (최대 12자)"
           style="flex:1;height:38px;border:2px solid var(--border);border-radius:12px;padding:0 12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--text);background:var(--bg);outline:none;">
-        <button onclick="saveNickname()" style="height:38px;padding:0 14px;border:none;border-radius:12px;background:linear-gradient(135deg,#ff6eb4,#ff9fd3);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;cursor:pointer;">저장</button>
+        <button onclick="saveNickname()" style="height:38px;padding:0 14px;border:none;border-radius:12px;background:linear-gradient(135deg,#ff6eb4,#ff9fd3);color:white;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;cursor:pointer;" id="nSaveNickBtn">저장</button>
       </div>
     </div>
-    <div class="settings-row"><span class="settings-label">🌙 나이트 모드</span><button class="toggle-btn" id="toggleNight" onclick="toggleSetting('night')"></button></div>
-    <div class="settings-row"><span class="settings-label">🎵 배경음악</span><button class="toggle-btn on" id="toggleBgm" onclick="toggleSetting('bgm')"></button></div>
-    <div class="settings-row"><span class="settings-label">🔊 효과음</span><button class="toggle-btn on" id="toggleSfx" onclick="toggleSetting('sfx')"></button></div>
-    <div class="settings-row"><span class="settings-label">📳 진동</span><button class="toggle-btn on" id="toggleVib" onclick="toggleSetting('vib')"></button></div>
-    <div class="settings-section">🐱 고양이 스킨</div>
+    <div class="settings-row"><span class="settings-label" id="nNightMode">🌙 나이트 모드</span><button class="toggle-btn" id="toggleNight" onclick="toggleSetting('night')"></button></div>
+    <div class="settings-row"><span class="settings-label" id="nBgmLabel">🎵 배경음악</span><button class="toggle-btn on" id="toggleBgm" onclick="toggleSetting('bgm')"></button></div>
+    <div class="settings-row"><span class="settings-label" id="nSfxLabel">🔊 효과음</span><button class="toggle-btn on" id="toggleSfx" onclick="toggleSetting('sfx')"></button></div>
+    <div class="settings-row"><span class="settings-label" id="nVibLabel">📳 진동</span><button class="toggle-btn on" id="toggleVib" onclick="toggleSetting('vib')"></button></div>
+    <div class="settings-section" id="nSkinLabel">🐱 고양이 스킨</div>
     <div class="skin-grid" id="skinGrid"></div>
-    <div class="settings-section">🎨 색상 테마</div>
+    <div class="settings-section" id="nThemeLabel">🎨 색상 테마</div>
     <div class="theme-grid" id="themeGrid"></div>
-    <button class="settings-save" onclick="saveSettings()">저장 💾</button>
+    <button class="settings-save" onclick="saveSettings()" id="nSaveAll">저장 💾</button>
   </div>
 </div>
 
 <div class="screen" id="startScreen">
   <span class="logo-emoji">🐱</span>
-  <div class="logo-title">냥10</div>
-  <div class="logo-sub">NUMBER PUZZLE</div>
+  <div class="logo-title" id="nLogoTitle">냥10</div>
+  <div class="logo-sub" id="nLogoSub">NUMBER PUZZLE</div>
   <div class="live-bar">
-    <div style="display:flex;align-items:center;gap:8px"><div class="live-dot"></div><span class="live-txt">지금 플레이 중</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><div class="live-dot"></div><span class="live-txt" id="nLiveTxt">지금 플레이 중</span></div>
     <span class="live-cnt" id="liveCnt">1명</span>
   </div>
   <div class="daily-challenge" id="dailyChallenge">
-    <span class="dc-badge">📅 오늘의 미션</span>
+    <span class="dc-badge" id="nDcBadge">📅 오늘의 미션</span>
     <span class="dc-text" id="dcText">로딩 중...</span>
     <span class="dc-status" id="dcStatus">⬜</span>
   </div>
   <div class="rule-card">
-    <div class="rule-item"><span class="ri">👆</span>고양이 탭 → 합이 <strong>10</strong>이 되면 냥~✨</div>
-    <div class="rule-item"><span class="ri">⬇️</span>시간 지날수록 고양이 쏟아짐!</div>
-    <div class="rule-item"><span class="ri">⏱️</span>60초 안에 최대한 많이!</div>
+    <div class="rule-item"><span class="ri">👆</span><span id="nRule1">고양이 탭 → 합이 <strong>10</strong>이 되면 냥~✨</span></div>
+    <div class="rule-item"><span class="ri">⬇️</span><span id="nRule2">시간 지날수록 고양이 쏟아짐!</span></div>
+    <div class="rule-item"><span class="ri">⏱️</span><span id="nRule3">60초 안에 최대한 많이!</span></div>
   </div>
-  <button class="btn-play" onclick="firstStart()">🐾 START!</button>
+  <button class="btn-play" id="nStartBtn" onclick="firstStart()">🐾 START!</button>
   <div style="margin-top:6px;text-align:center;font-size:12px;font-weight:800;color:var(--dim);">
-    😺 <span id="startNickname"></span> · <span onclick="openSettings()" style="cursor:pointer;text-decoration:underline;">닉네임 변경</span>
+    😺 <span id="startNickname"></span> · <span onclick="openSettings()" style="cursor:pointer;text-decoration:underline;" id="nChangeNick">닉네임 변경</span>
   </div>
   <div style="margin-top:8px;text-align:center;">
-    <span onclick="openPrivacy()" style="font-size:11px;font-weight:800;color:var(--dim);letter-spacing:1px;cursor:pointer;text-decoration:underline;">개인정보처리방침</span>
-    &nbsp;·&nbsp;
-    <span onclick="openTerms()" style="font-size:11px;font-weight:800;color:var(--dim);letter-spacing:1px;cursor:pointer;text-decoration:underline;">이용약관</span>
-    &nbsp;·&nbsp;
-    <a href="https://buymeacoffee.com/bang.a.can" target="_blank" style="font-size:11px;font-weight:800;color:#f7c948;text-decoration:none;">🧋 커피 한 잔</a>
-    &nbsp;·&nbsp;
-    <a href="https://www.threads.net/@bang.a.can" target="_blank" style="font-size:11px;font-weight:800;color:var(--pink);text-decoration:none;"><span style="color:var(--dim);">by </span>@bang.a.can</a>
+    <div style="margin-bottom:4px;">
+      <span onclick="openPrivacy()" style="font-size:11px;font-weight:800;color:var(--dim);letter-spacing:1px;cursor:pointer;text-decoration:underline;" id="nPrivacyLink">개인정보처리방침</span>
+      &nbsp;·&nbsp;
+      <span onclick="openTerms()" style="font-size:11px;font-weight:800;color:var(--dim);letter-spacing:1px;cursor:pointer;text-decoration:underline;" id="nTermsLink">이용약관</span>
+      &nbsp;·&nbsp;
+      <a href="https://buymeacoffee.com/bang.a.can" target="_blank" style="font-size:11px;font-weight:800;color:#f7c948;text-decoration:none;" id="nCoffeeLink">🧋 커피 한 잔</a>
+    </div>
+    <div>
+      <a href="https://www.threads.net/@bang.a.can" target="_blank" style="font-size:11px;font-weight:800;color:var(--pink);text-decoration:none;"><span style="color:var(--dim);">by </span>@bang.a.can</a>
+    </div>
   </div>
   <div style="margin-top:6px;width:100%;min-height:50px;">
     <ins class="adsbygoogle" style="display:block;width:100%;height:50px;" data-ad-client="ca-pub-8375396580965138" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"></ins>
@@ -314,7 +323,7 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
     <span class="pvp-status" id="pvpStatus">💨</span>
   </div>
   <div class="sum-bar" id="sumBar">
-    <span class="sum-lbl">합계</span>
+    <span class="sum-lbl" id="nSumLbl">합계</span>
     <span class="sum-num" id="sumNum">—</span>
     <span class="sum-tip" id="sumTip">고양이를 골라봐 🐱</span>
   </div>
@@ -323,18 +332,18 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
 
 <div class="screen hidden" id="resultScreen" onclick="handleResultTap(event)">
   <div class="res-emoji" id="resEmoji">😸</div>
-  <div class="res-top">GAME OVER</div>
+  <div class="res-top" id="nResTop">GAME OVER</div>
   <div class="res-grade" id="resGrade"></div>
   <div class="res-score" id="resScore">0</div>
-  <div class="res-sub">타일 <b id="resTiles">0</b>개 제거</div>
+  <div class="res-sub"><span id="nResSub1">타일</span> <b id="resTiles">0</b><span id="nResSub2">개 제거</span></div>
   <div class="res-rank" id="resRank"></div>
   <div class="res-best" id="resBest">BEST: <b>0</b></div>
   <div class="res-best-gap" id="resBestGap"></div>
-  <div class="lb-card"><div class="lb-title">🏆 오늘의 TOP 5</div><div id="lbList">로딩 중...</div></div>
-  <button class="btn-retry" onclick="instantRetry()">🔄 다시하기</button>
-  <div class="retry-hint">화면 아무데나 탭해도 시작해요 ⚡</div>
+  <div class="lb-card"><div class="lb-title" id="nLbTitle">🏆 오늘의 TOP 5</div><div id="lbList" data-loading="로딩 중...">로딩 중...</div></div>
+  <button class="btn-retry" id="nRetryBtn" onclick="instantRetry()">🔄 다시하기</button>
+  <div class="retry-hint" id="nRetryHint">화면 아무데나 탭해도 시작해요 ⚡</div>
   <div class="share-section">
-    <div class="share-label">공유하기</div>
+    <div class="share-label" id="nShareLabel">공유하기</div>
     <div class="share-grid">
       <button class="share-btn share-x" onclick="shareToX()" title="X(트위터)">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.858L1.999 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -348,7 +357,7 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
       <button class="share-btn share-link" onclick="copyLink()" title="링크복사">🔗</button>
       <button class="share-btn share-native" onclick="shareScore()" title="더보기">📤</button>
     </div>
-    <div class="share-labels-row"><span>X</span><span>Threads</span><span>카톡</span><span>링크복사</span><span>더보기</span></div>
+    <div class="share-labels-row"><span id="nSL0">X</span><span id="nSL1">Threads</span><span id="nSL2">카톡</span><span id="nSL3">링크복사</span><span id="nSL4">더보기</span></div>
   </div>
   <div style="width:100%;min-height:50px;">
     <ins class="adsbygoogle" style="display:block;width:100%;height:50px;" data-ad-client="ca-pub-8375396580965138" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"></ins>
@@ -356,87 +365,91 @@ body.night .daily-challenge{background:linear-gradient(135deg,#2a2010,#1e1a08);b
   </div>
 </div>
 
-<div class="best-burst hidden" id="bestBurst"><div class="best-burst-inner">🏆 최고점 경신!</div></div>
+<div class="best-burst hidden" id="bestBurst"><div class="best-burst-inner" id="nBestBurst">🏆 최고점 경신!</div></div>
 
 <div class="tut-ov hidden" id="tutOv" onclick="closeTut()">
   <div class="tut-box">
     <div class="tut-emoji">🐱</div>
-    <div class="tut-title">이렇게 해봐요!</div>
-    <div class="tut-step">1️⃣ 숫자 고양이를 <b>탭</b>해서 선택</div>
-    <div class="tut-step">2️⃣ 선택한 합이 <b>10</b>이 되면 자동 제거!</div>
-    <div class="tut-step">3️⃣ 한번에 3개 이상 → <b>보너스 점수 🔥</b></div>
-    <div class="tut-step">4️⃣ 연속으로 성공하면 <b>콤보!</b></div>
-    <button class="tut-btn" onclick="closeTut()">시작하기 🐾</button>
+    <div class="tut-title" id="nTutTitle">이렇게 해봐요!</div>
+    <div class="tut-step" id="nTutS1">1️⃣ 숫자 고양이를 <b>탭</b>해서 선택</div>
+    <div class="tut-step" id="nTutS2">2️⃣ 선택한 합이 <b>10</b>이 되면 자동 제거!</div>
+    <div class="tut-step" id="nTutS3">3️⃣ 한번에 3개 이상 → <b>보너스 점수 🔥</b></div>
+    <div class="tut-step" id="nTutS4">4️⃣ 연속으로 성공하면 <b>콤보!</b></div>
+    <button class="tut-btn" id="nTutBtn" onclick="closeTut()">시작하기 🐾</button>
   </div>
 </div>
 
 <div class="settings-modal hidden" id="termsModal" onclick="closeTermsBg(event)">
   <div class="settings-sheet" style="max-height:80vh;overflow-y:auto;">
-    <div class="settings-title">📄 이용약관</div>
+    <div class="settings-title" id="nTermsTitle">📄 이용약관</div>
     <button class="settings-close" onclick="closeTerms()">✕</button>
-    <div style="font-size:12px;font-weight:700;color:var(--text);line-height:1.8;">
-      <p style="margin-bottom:10px;color:var(--dim);">시행일: 2025년 1월 1일</p>
+    <div id="termsContent" style="font-size:12px;font-weight:700;color:var(--text);line-height:1.8;">
+      <p style="margin-bottom:10px;color:var(--dim);">시행일: 2026년 1월 1일</p>
       <b>제1조 (목적)</b>
-      <p style="margin:6px 0 12px;">이 약관은 냥10(이하 "서비스")이 제공하는 웹 게임 서비스의 이용 조건 및 절차, 이용자와 서비스 간의 권리·의무 및 책임 사항을 규정함을 목적으로 합니다.</p>
-      <b>제2조 (서비스 이용)</b>
-      <p style="margin:6px 0 12px;">- 서비스는 별도 회원가입 없이 무료로 이용할 수 있습니다.<br>- 이용자는 본 약관에 동의함으로써 서비스를 이용할 수 있습니다.<br>- 만 14세 미만의 경우 법정대리인의 동의가 필요합니다.</p>
+      <p style="margin:6px 0 12px;">이 약관은 냥10(이하 "서비스")이 제공하는 웹 게임 서비스의 이용 조건 및 절차, 이용자와 서비스 간의 권리·의무 및 책임사항을 규정합니다.</p>
+      <b>제2조 (이용 자격)</b>
+      <p style="margin:6px 0 12px;">서비스는 만 13세 이상 누구나 무료로 이용할 수 있습니다. 만 13세 미만은 서비스를 이용할 수 없습니다. 대한민국의 경우 만 14세 미만은 법정대리인의 동의가 필요합니다.</p>
       <b>제3조 (금지 행위)</b>
-      <p style="margin:6px 0 12px;">- 리더보드 점수 조작, 어뷰징, 핵 사용 등 부정한 방법의 점수 취득<br>- 타 이용자의 게임 진행을 방해하는 행위<br>- 서비스의 정상적인 운영을 방해하는 행위</p>
+      <p style="margin:6px 0 12px;">- 리더보드 점수 조작·어뷰징·핵 사용 등 부정한 방법의 점수 취득<br>- 타 이용자의 게임 진행을 방해하는 행위<br>- 서비스의 정상적인 운영을 방해하는 행위</p>
       <b>제4조 (서비스 변경 및 중단)</b>
-      <p style="margin:6px 0 12px;">서비스는 운영 정책에 따라 사전 고지 없이 변경되거나 중단될 수 있으며, 이로 인한 손해에 대해 별도의 보상을 제공하지 않습니다.</p>
-      <b>제5조 (면책 조항)</b>
-      <p style="margin:6px 0 12px;">서비스는 이용자의 귀책 사유로 발생한 서비스 이용 장애에 대해 책임을 지지 않습니다. 또한 이용자가 서비스를 통해 기대하는 이익을 보장하지 않습니다.</p>
+      <p style="margin:6px 0 12px;">서비스는 운영 정책에 따라 사전 고지 없이 변경되거나 중단될 수 있습니다.</p>
+      <b>제5조 (책임의 한계)</b>
+      <p style="margin:6px 0 12px;">서비스는 이용자의 귀책 사유로 발생한 손해에 대해 책임을 지지 않습니다. 단, 서비스의 고의 또는 중대한 과실로 인한 손해에 대해서는 관련 법령에 따라 책임을 집니다. 이용자가 서비스를 통해 기대하는 특정 이익을 보장하지 않습니다.</p>
       <b>제6조 (준거법 및 분쟁해결)</b>
-      <p style="margin:6px 0 12px;">이 약관은 대한민국 법률에 따라 해석되며, 분쟁 발생 시 관할 법원은 서울중앙지방법원으로 합니다.</p>
+      <p style="margin:6px 0 12px;">이 약관은 대한민국 법률에 따라 해석됩니다. 대한민국 이용자와의 분쟁은 서울중앙지방법원을 관할로 합니다. 해외 이용자의 경우 해당 국가의 강행법규가 우선 적용될 수 있습니다.</p>
       <b>제7조 (문의)</b>
-      <p style="margin:6px 0 12px;">📧 <a href="mailto:nyang10game@gmail.com" style="color:var(--pink);">nyang10game@gmail.com</a></p>
+      <p style="margin:6px 0 12px;">📧 <a href="mailto:bang.a.can@gmail.com" style="color:var(--pink);">bang.a.can@gmail.com</a></p>
+
     </div>
-    <button class="settings-save" onclick="closeTerms()">확인 ✅</button>
+    <button class="settings-save" onclick="closeTerms()" id="nTermsConfirm">확인 ✅</button>
   </div>
 </div>
 
 <div class="settings-modal hidden" id="privacyModal" onclick="closePrivacyBg(event)">
   <div class="settings-sheet" style="max-height:80vh;overflow-y:auto;">
-    <div class="settings-title">🔒 개인정보처리방침</div>
+    <div class="settings-title" id="nPrivacyTitle">🔒 개인정보처리방침</div>
     <button class="settings-close" onclick="closePrivacy()">✕</button>
-    <div style="font-size:12px;font-weight:700;color:var(--text);line-height:1.8;">
-      <p style="margin-bottom:10px;color:var(--dim);">시행일: 2025년 1월 1일</p>
+    <div id="privacyContent" style="font-size:12px;font-weight:700;color:var(--text);line-height:1.8;">
+      <p style="margin-bottom:10px;color:var(--dim);">시행일: 2026년 1월 1일</p>
       <b>1. 수집하는 정보</b>
-      <p style="margin:6px 0 12px;">냥10은 다음 정보를 수집합니다:<br>- 기기 고유 식별자 (랜덤 생성, 개인 특정 불가)<br>- 닉네임 (랜덤 자동 생성)<br>- 게임 점수 및 플레이 시간</p>
+      <p style="margin:6px 0 12px;">냥10은 다음 정보를 수집합니다:<br>- 기기 고유 식별자 (랜덤 생성, 개인 특정 불가)<br>- 닉네임 (랜덤 자동 생성 또는 이용자 입력)<br>- 게임 점수 및 플레이 시간</p>
       <b>2. 수집 목적</b>
-      <p style="margin:6px 0 12px;">- 실시간 리더보드 운영<br>- 동접자 수 표시<br>- 게임 서비스 개선</p>
+      <p style="margin:6px 0 12px;">- 실시간 리더보드 운영<br>- 동접자 수 표시<br>- 게임 서비스 품질 개선</p>
       <b>3. 보관 기간</b>
-      <p style="margin:6px 0 12px;">점수 데이터는 당일 기준으로 관리되며, 서비스 운영 목적 달성 후 파기합니다.</p>
-      <b>4. 제3자 제공</b>
-      <p style="margin:6px 0 12px;">수집된 정보는 Firebase(Google LLC)에 저장됩니다. Google의 개인정보처리방침이 적용됩니다.</p>
+      <p style="margin:6px 0 12px;">점수 데이터는 당일 기준으로 관리되며, 최대 7일 이내에 삭제됩니다. 기기 식별자는 이용자가 직접 초기화하거나 삭제 요청 시 즉시 파기합니다.</p>
+      <b>4. 제3자 제공 (해외 이전 포함)</b>
+      <p style="margin:6px 0 12px;">수집된 정보는 Firebase(Google LLC, 미국 소재)에 저장됩니다. 이는 대한민국 외 국가로의 개인정보 이전에 해당하며, Google의 개인정보처리방침 및 표준 계약 조항(SCC)에 따라 보호됩니다. 해당 정보는 제3자에게 판매하지 않습니다.</p>
       <b>5. 이용자 권리</b>
-      <p style="margin:6px 0 12px;">이용자는 언제든지 본인의 데이터 삭제를 요청할 수 있습니다. 앱 설정에서 데이터 초기화가 가능합니다.</p>
-      <b>6. 문의</b>
-      <p style="margin:6px 0 12px;">개인정보 관련 문의는 아래 이메일로 연락주세요.<br>📧 <a href="mailto:nyang10game@gmail.com" style="color:var(--pink);">nyang10game@gmail.com</a></p>
+      <p style="margin:6px 0 12px;">이용자는 언제든지 본인의 데이터 열람·삭제·처리 정지를 요청할 수 있습니다. 설정 화면에서 직접 데이터 초기화가 가능하며, 이메일로도 요청하실 수 있습니다. 요청 후 30일 이내에 처리됩니다.</p>
+      <b>6. 아동 개인정보</b>
+      <p style="margin:6px 0 12px;">서비스는 만 13세 미만 아동의 개인정보를 의도적으로 수집하지 않습니다. 만 13세 미만임이 확인될 경우 즉시 해당 정보를 삭제합니다.</p>
+      <b>7. 문의</b>
+      <p style="margin:6px 0 12px;">📧 <a href="mailto:bang.a.can@gmail.com" style="color:var(--pink);">bang.a.can@gmail.com</a><br>처리 기간: 요청일로부터 30일 이내</p>
+
     </div>
-    <button class="settings-save" onclick="closePrivacy()">확인 ✅</button>
+    <button class="settings-save" onclick="closePrivacy()" id="nPrivacyConfirm">확인 ✅</button>
   </div>
 </div>
 
 <div class="restart-modal hidden" id="restartModal">
   <div class="restart-box">
     <div style="font-size:36px">🔄</div>
-    <div style="font-size:17px;font-weight:900;color:var(--text);">다시 시작할까요?</div>
-    <div style="font-size:12px;font-weight:800;color:var(--dim);">지금 점수가 사라져요!</div>
+    <div style="font-size:17px;font-weight:900;color:var(--text);" id="nRestartTitle">다시 시작할까요?</div>
+    <div style="font-size:12px;font-weight:800;color:var(--dim);" id="nRestartSub">지금 점수가 사라져요!</div>
     <div style="display:flex;gap:10px;width:100%;margin-top:4px;">
-      <button onclick="cancelRestart()" style="flex:1;height:44px;border:2px solid var(--border);border-radius:14px;background:white;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--dim);cursor:pointer;">취소</button>
-      <button onclick="doRestart()" style="flex:1;height:44px;border:none;border-radius:14px;background:linear-gradient(135deg,#ff6eb4,#ff9fd3);font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:white;cursor:pointer;box-shadow:0 4px 0 var(--pink-dark);">다시시작!</button>
+      <button onclick="cancelRestart()" style="flex:1;height:44px;border:2px solid var(--border);border-radius:14px;background:white;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--dim);cursor:pointer;" id="nCancelBtn">취소</button>
+      <button onclick="doRestart()" style="flex:1;height:44px;border:none;border-radius:14px;background:linear-gradient(135deg,#ff6eb4,#ff9fd3);font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:white;cursor:pointer;box-shadow:0 4px 0 var(--pink-dark);" id="nRestartBtn">다시시작!</button>
     </div>
   </div>
 </div>
 
 <div class="cd-ov hidden" id="cdOv">
   <div class="cd-n" id="cdN">3</div>
-  <div class="cd-sub">고양이들 출동 준비 중...</div>
+  <div class="cd-sub" id="nCdSub">고양이들 출동 준비 중...</div>
 </div>
 <div class="go-flash hidden" id="goFlash"><div class="go-txt">GO! 🐱</div></div>
 
-<script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import{getDatabase,ref,set,get,push,onValue,onDisconnect,query,orderByChild,limitToLast}from"https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
 import{getAnalytics,logEvent}from"https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
@@ -451,7 +464,7 @@ const tKey=todayKey();
 const pRef=push(ref(db,'players'));
 set(pRef,{t:Date.now()});
 onDisconnect(pRef).remove();
-onValue(ref(db,'players'),snap=>{const cnt=snap.exists()?Object.keys(snap.val()).length:1;const el=document.getElementById('liveCnt');if(el)el.textContent=Math.max(cnt,1)+'명';});
+onValue(ref(db,'players'),snap=>{const cnt=snap.exists()?Object.keys(snap.val()).length:1;const el=document.getElementById('liveCnt');if(el)el.textContent=Math.max(cnt,1)+(_T[_curLang]?.playerUnit||'명');});
 onValue(query(ref(db,`scores/${tKey}`),orderByChild('score'),limitToLast(1)),snap=>{if(!snap.exists())return;snap.forEach(c=>{window._todayBest=c.val().score;});},{onlyOnce:true});
 window.fbSubmit=async s=>{
   const userRef=ref(db,`scores/${tKey}/${DEVICE_ID}`);
@@ -545,7 +558,7 @@ function closeSettingsBg(e){if(e.target===document.getElementById('settingsModal
 function toggleSetting(key){settings[key]=!settings[key];const btn=document.getElementById('toggle'+key.charAt(0).toUpperCase()+key.slice(1));btn.className='toggle-btn'+(settings[key]?' on':'');if(key==='sfx'){sfxMuted=!settings.sfx;document.getElementById('muteBtn').textContent=sfxMuted?'🔇':'🔊';if(!sfxMuted)playTone(880,'sine',0.1,0.2);}if(key==='bgm'){settings.bgm?startBGM():stopBGM();}if(key==='night'){applyNight(settings.night);}}
 function selectSkin(id){settings.skin=id;document.querySelectorAll('.skin-opt').forEach(el=>el.classList.toggle('active',el.dataset.skin===id));const skin=CAT_SKINS.find(s=>s.id===id);if(skin)window._curSkin=skin;}
 function selectTheme(id){settings.theme=id;document.querySelectorAll('.theme-opt').forEach(el=>{const t=COLOR_THEMES.find(t=>t.id===el.dataset.theme);el.classList.toggle('active',el.dataset.theme===id);if(t)el.style.borderColor=el.dataset.theme===id?t.pink:'#f0d4f0';});applyTheme(id);}
-function saveNickname(){const input=document.getElementById('nicknameInput');const val=input.value.trim();if(!val){showToast('닉네임을 입력해줘요 🐱');return;}localStorage.setItem('n10_name',val);updateStartNickname();showToast('닉네임 저장! 😺 '+val);if(settings.sfx)playTone(660,'sine',0.1,0.25);}
+function saveNickname(){const input=document.getElementById('nicknameInput');const val=input.value.trim();const lt=_T[_curLang]||_T.ko;if(!val){showToast(lt.nickEmpty);return;}localStorage.setItem('n10_name',val);updateStartNickname();showToast(lt.nickSaved+val);if(settings.sfx)playTone(660,'sine',0.1,0.25);}
 function updateStartNickname(){const el=document.getElementById('startNickname');if(el)el.textContent=localStorage.getItem('n10_name')||'냥집사';}
 function saveSettings(){saveSettingsData();const skin=CAT_SKINS.find(s=>s.id===settings.skin)||CAT_SKINS[0];window._curSkin=skin;closeSettings();if(settings.sfx)playTone(660,'sine',0.1,0.25);}
 function vibrate(pattern){if(settings.vib&&navigator.vibrate)navigator.vibrate(pattern);}
@@ -631,7 +644,7 @@ function checkMS(){SMS.forEach(m=>{if(score>=m.v&&!dSMS.has(m.v)){dSMS.add(m.v);
 function showMS(msg){const el=document.createElement('div');el.className='milestone';el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),2000);}
 function updateScore(){const el=document.getElementById('scoreVal');el.textContent=score;el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}
 function updateCombo(){const el=document.getElementById('comboPill');if(combo>=3){el.textContent='×1.5 🔥';el.className='combo-pill on';}else if(combo>=2){el.textContent='🔥 콤보!';el.className='combo-pill on';}else{el.textContent='×1';el.className='combo-pill';}}
-function updateSumBar(sum){const bar=document.getElementById('sumBar'),num=document.getElementById('sumNum'),tip=document.getElementById('sumTip');bar.className='sum-bar';const cnt=sel.length;if(!sum||!cnt){num.textContent='—';num.className='sum-num';tip.textContent='고양이를 골라봐 🐱';tip.className='sum-tip';}else if(sum===TARGET){num.textContent=sum;num.className='sum-num exact';const bonus=cnt>=4?'×2.5 💥':cnt===3?'×1.5 ⚡':'';tip.textContent='완성! '+bonus;tip.className='sum-tip exact';bar.classList.add('exact');}else if(TARGET-sum<=2){num.textContent=sum;num.className='sum-num close';tip.textContent=`${TARGET-sum} 더면 돼!`;tip.className='sum-tip';bar.classList.add('close-glow');}else{num.textContent=sum;num.className='sum-num';tip.textContent=cnt>=3?`${TARGET-sum} 더! ⚡보너스`:`${TARGET-sum} 더!`;tip.className='sum-tip';}}
+function updateSumBar(sum){const bar=document.getElementById('sumBar'),num=document.getElementById('sumNum'),tip=document.getElementById('sumTip');bar.className='sum-bar';const cnt=sel.length;const lt=_T[_curLang]||_T.ko;if(!sum||!cnt){num.textContent='—';num.className='sum-num';tip.textContent=lt.sumPick;tip.className='sum-tip';}else if(sum===TARGET){num.textContent=sum;num.className='sum-num exact';const bonus=cnt>=4?'×2.5 💥':cnt===3?'×1.5 ⚡':'';tip.textContent=lt.sumDone+bonus;tip.className='sum-tip exact';bar.classList.add('exact');}else if(TARGET-sum<=2){num.textContent=sum;num.className='sum-num close';tip.textContent=`${TARGET-sum} ${lt.sumMore1}`;tip.className='sum-tip';bar.classList.add('close-glow');}else{num.textContent=sum;num.className='sum-num';tip.textContent=cnt>=3?`${TARGET-sum} ${lt.sumMore2}`:`${TARGET-sum} ${lt.sumMore1}`;tip.className='sum-tip';}}
 function updateTimer(){const ring=document.getElementById('timerRing'),num=document.getElementById('timerNum'),border=document.getElementById('panicBorder');ring.style.strokeDashoffset=CIRC*(1-timeLeft/DURATION);if(timeLeft<=10){ring.style.stroke='#ff4f4f';num.style.color='#ff4f4f';border.className='panic-border on';if(timeLeft===10)startTickSound();}else if(timeLeft<=20){ring.style.stroke='#ff9040';num.style.color='#ff9040';border.className='panic-border';}else{ring.style.stroke='var(--pink)';num.style.color='var(--text)';border.className='panic-border';}num.textContent=timeLeft;}
 function flash(type){const el=document.getElementById('flashOv');el.className='flash-ov '+type;setTimeout(()=>el.className='flash-ov',500);}
 function showFx(txt,x,y,color,size){const d=document.createElement('div');d.className='fx';d.textContent=txt;d.style.cssText=`left:${x}px;top:${y}px;color:${color};font-size:${size}px;`;document.body.appendChild(d);setTimeout(()=>d.remove(),1000);}
@@ -658,7 +671,7 @@ function startGame(){
   if(typeof analyticsLog==='function')analyticsLog('game_start',{skin:settings&&settings.skin||'classic'});
   document.getElementById('panicBorder').className='panic-border';
   initBoard();updateScore();updateCombo();updateSumBar(0);updateTimer();updatePVP();showScreen('game');buildGrid();startOpp();startBGM();
-  ticker=setInterval(()=>{timeLeft--;updateTimer();if(timeLeft===40||timeLeft===15)startPressure();if(timeLeft>0&&timeLeft%10===0&&timeLeft<50){const rush=document.createElement('div');rush.className='milestone';rush.textContent=timeLeft<=15?'⚡ 막판이다!':timeLeft<=30?'🔥 속도를 올려!':'💨 집중!';document.body.appendChild(rush);setTimeout(()=>rush.remove(),1800);}if(timeLeft<=0){clearInterval(ticker);clearTimeout(pTimer);clearInterval(oppTimer);running=false;pressureActive=false;stopBGM();sndGameOver();checkDailyChallenge();setTimeout(showResult,150);}},1000);
+  ticker=setInterval(()=>{timeLeft--;updateTimer();if(timeLeft===40||timeLeft===15)startPressure();if(timeLeft>0&&timeLeft%10===0&&timeLeft<50){const lt=_T[_curLang]||_T.ko;const rush=document.createElement('div');rush.className='milestone';rush.textContent=timeLeft<=15?lt.rush3:timeLeft<=30?lt.rush2:lt.rush1;document.body.appendChild(rush);setTimeout(()=>rush.remove(),1800);}if(timeLeft<=0){clearInterval(ticker);clearTimeout(pTimer);clearInterval(oppTimer);running=false;pressureActive=false;stopBGM();sndGameOver();checkDailyChallenge();setTimeout(showResult,150);}},1000);
 }
 function handleResultTap(e){if(e.target.tagName==='BUTTON'||e.target.tagName==='svg'||e.target.tagName==='path'||e.target.tagName==='circle'||e.target.closest('.lb-card')||e.target.closest('.share-section')||e.target.closest('button'))return;instantRetry();}
 function showResult(){
@@ -671,7 +684,7 @@ function showResult(){
   const ge=document.getElementById('resGrade');ge.textContent=g.t;ge.style.cssText=`background:${g.bg};color:${g.c}`;
   document.getElementById('resTiles').textContent=cleared;
   document.getElementById('resBest').innerHTML=`BEST: <b>${best}</b>`;
-  const gapEl=document.getElementById('resBestGap');if(gapEl){const gap=best-score;if(gap>0)gapEl.textContent=`최고점까지 딱 ${gap}점! 한 번만 더! 🔥`;else gapEl.textContent='🏆 최고점 경신!';}
+  const gapEl=document.getElementById('resBestGap');if(gapEl){const lt=_T[_curLang]||_T.ko;const gap=best-score;if(gap>0)gapEl.textContent=lt.bestGapMore.replace('{n}',gap);else gapEl.textContent=lt.bestGapNew;}
   showScreen('result');
   const scoreEl=document.getElementById('resScore');scoreEl.textContent='0';
   const duration=800,steps=40,increment=score/steps;let current=0;
@@ -685,7 +698,7 @@ function shareScore(){
   ctx.fillStyle='#ff6eb4';ctx.font='bold 36px sans-serif';ctx.textAlign='center';ctx.fillText('냥10 🐱',300,52);ctx.fillStyle=g.bg;ctx.beginPath();ctx.roundRect(220,70,160,38,20);ctx.fill();ctx.fillStyle=g.c;ctx.font='bold 20px sans-serif';ctx.textAlign='center';ctx.fillText(g.t,300,95);ctx.font='90px sans-serif';ctx.fillText(g.e,300,185);ctx.fillStyle='#ff6eb4';ctx.font='bold 86px sans-serif';ctx.shadowColor='#d94d96';ctx.shadowOffsetY=5;ctx.shadowBlur=0;ctx.fillText(score+'점',300,288);ctx.shadowColor='transparent';if(rankTxt){ctx.fillStyle='#4ecdc4';ctx.font='bold 18px sans-serif';ctx.fillText(rankTxt,300,320);}ctx.fillStyle='#b89db8';ctx.font='bold 14px sans-serif';ctx.fillText('나보다 잘하면 인정 🐾  Can you beat my '+score+'?',300,348);
   canvas.toBlob(blob=>{const file=new File([blob],'nyang10.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:'냥10',text:`${g.e} ${g.t} 달성 — ${score}점!\n${rankTxt}`}).catch(()=>{});}else{const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='nyang10_score.png';a.click();URL.revokeObjectURL(url);}},  'image/png');
 }
-function getShareText(){const g=[...GRADES].reverse().find(g=>score>=g.min)||GRADES[0];const rankTxt=document.getElementById('resRank').textContent||'';return`${g.e} 냥10에서 ${score}점 달성! ${rankTxt?rankTxt+' ':''}나보다 잘하면 인정 🐾 #냥10 #숫자퍼즐`;}
+function getShareText(){const g=[...GRADES].reverse().find(g=>score>=g.min)||GRADES[0];const rankTxt=document.getElementById('resRank').textContent||'';const lt=_T[_curLang]||_T.ko;return`${g.e} ${lt.shareAch}${score}${lt.shareScore}${rankTxt?rankTxt+' ':''}${lt.shareChallenge} ${lt.shareTag}`;}
 function getGameUrl(){return location.href.split('?')[0];}
 function shareToX(){window.open(`https://x.com/intent/post?text=${encodeURIComponent(getShareText()+'\n'+getGameUrl())}`,'_blank');}
 function shareToThreads(){window.open(`https://www.threads.com/intent/post?text=${encodeURIComponent(getShareText()+'\n'+getGameUrl())}`,'_blank');}
@@ -711,6 +724,200 @@ initDailyChallenge();
 
 const SKIN_UNLOCK={classic:{unlocked:true},fancy:{unlocked:()=>best>=50,hint:'BEST 50점 달성'},star:{unlocked:()=>best>=100,hint:'BEST 100점 달성'},food:{unlocked:()=>best>=150,hint:'BEST 150점 달성'},pure:{unlocked:()=>best>=200,hint:'BEST 200점 달성'}};
 function isSkinUnlocked(id){const u=SKIN_UNLOCK[id];if(!u)return true;return u.unlocked===true||(typeof u.unlocked==='function'&&u.unlocked());}
+</script>
+<script>
+const _T={
+  ko:{logoTitle:'냥10',logoSub:'NUMBER PUZZLE',liveTxt:'지금 플레이 중',playerUnit:'명',dcBadge:'📅 오늘의 미션',rule1:'고양이 탭 → 합이 <strong>10</strong>이 되면 냥~✨',rule2:'시간 지날수록 고양이 쏟아짐!',rule3:'60초 안에 최대한 많이!',startBtn:'🐾 START!',resTop:'GAME OVER',retryBtn:'🔄 다시하기',retryHint:'화면 아무데나 탭해도 시작해요 ⚡',shareLabel:'공유하기',shareLabels:['X','Threads','카톡','링크복사','더보기'],bestBurst:'🏆 최고점 경신!',tutTitle:'이렇게 해봐요!',tutS1:'1️⃣ 숫자 고양이를 <b>탭</b>해서 선택',tutS2:'2️⃣ 선택한 합이 <b>10</b>이 되면 자동 제거!',tutS3:'3️⃣ 한번에 3개 이상 → <b>보너스 점수 🔥</b>',tutS4:'4️⃣ 연속으로 성공하면 <b>콤보!</b>',tutBtn:'시작하기 🐾',cdSub:'고양이들 출동 준비 중...',dc:['콤보 5 달성하기 🔥','100점 달성하기 💯','타일 20개 제거하기 🐱','200점 달성하기 👑','3콤보 두 번 달성하기 ⚡'],sumPick:'고양이를 골라봐 🐱',sumDone:'완성! ',sumMore1:'더면 돼!',sumMore2:'더! ⚡보너스',rush3:'⚡ 막판이다!',rush2:'🔥 속도를 올려!',rush1:'💨 집중!',shareAch:'냥10에서 ',shareScore:'점 달성! ',shareChallenge:'나보다 잘하면 인정 🐾',shareTag:'#냥10 #숫자퍼즐',settingsTitle:'⚙️ 설정',nickname:'😺 닉네임',nickPlaceholder:'닉네임 입력 (최대 12자)',saveBtn:'저장',nightMode:'🌙 나이트 모드',bgmLabel:'🎵 배경음악',sfxLabel:'🔊 효과음',vibLabel:'📳 진동',skinLabel:'🐱 고양이 스킨',themeLabel:'🎨 색상 테마',saveAll:'저장 💾',changeNick:'닉네임 변경',privacy:'개인정보처리방침',terms:'이용약관',coffee:'🧋 커피 한 잔',sumLbl:'합계',resSub1:'타일',resSub2:'개 제거',lbTitle:'🏆 오늘의 TOP 5',loading:'로딩 중...',restartTitle:'다시 시작할까요?',restartSub:'지금 점수가 사라져요!',cancel:'취소',restartBtn:'다시시작!',nickEmpty:'닉네임을 입력해줘요 🐱',nickSaved:'닉네임 저장! 😺 ',bestGapMore:'최고점까지 딱 {n}점! 한 번만 더! 🔥',bestGapNew:'🏆 최고점 경신!',privacyTitle:'🔒 개인정보처리방침',termsTitle:'📄 이용약관',confirm:'확인 ✅'},
+  en:{logoTitle:'Nyan10',logoSub:'NUMBER PUZZLE',liveTxt:'Now Playing',playerUnit:' online',dcBadge:'📅 Daily Mission',rule1:'Tap cats → Sum to <strong>10</strong> and nyan~✨',rule2:'More cats drop as time passes!',rule3:'Score as much as you can in 60s!',startBtn:'🐾 START!',resTop:'GAME OVER',retryBtn:'🔄 Play Again',retryHint:'Tap anywhere to start ⚡',shareLabel:'SHARE',shareLabels:['X','Threads','KakaoTalk','Copy Link','More'],bestBurst:'🏆 New High Score!',tutTitle:'How to Play!',tutS1:'1️⃣ <b>Tap</b> number cats to select',tutS2:'2️⃣ Auto-removed when sum hits <b>10</b>!',tutS3:'3️⃣ 3+ at once → <b>Bonus score 🔥</b>',tutS4:'4️⃣ Consecutive success = <b>Combo!</b>',tutBtn:"Let's Go 🐾",cdSub:'Cats getting ready...',dc:['Achieve Combo 5 🔥','Score 100 points 💯','Clear 20 tiles 🐱','Score 200 points 👑','Achieve Combo 3 twice ⚡'],sumPick:'Pick a cat 🐱',sumDone:'Perfect! ',sumMore1:'more to go!',sumMore2:'more! ⚡Bonus',rush3:'⚡ Final push!',rush2:'🔥 Speed it up!',rush1:'💨 Focus!',shareAch:'I scored ',shareScore:' on Nyan10! ',shareChallenge:'Beat me if you can 🐾',shareTag:'#Nyan10 #NumberPuzzle',settingsTitle:'⚙️ Settings',nickname:'😺 Nickname',nickPlaceholder:'Enter nickname (max 12 chars)',saveBtn:'Save',nightMode:'🌙 Night Mode',bgmLabel:'🎵 BGM',sfxLabel:'🔊 Sound FX',vibLabel:'📳 Vibration',skinLabel:'🐱 Cat Skin',themeLabel:'🎨 Color Theme',saveAll:'Save 💾',changeNick:'Change Nickname',privacy:'Privacy Policy',terms:'Terms of Service',coffee:'🧋 Buy me a coffee',sumLbl:'SUM',resSub1:'',resSub2:' tiles cleared',lbTitle:'🏆 Today\'s TOP 5',loading:'Loading...',restartTitle:'Restart?',restartSub:'Your current score will be lost!',cancel:'Cancel',restartBtn:'Restart!',nickEmpty:'Please enter a nickname 🐱',nickSaved:'Nickname saved! 😺 ',bestGapMore:'Just {n} more to beat your best! 🔥',bestGapNew:'🏆 New High Score!',privacyTitle:'🔒 Privacy Policy',termsTitle:'📄 Terms of Service',confirm:'Confirm ✅'},
+  ja:{logoTitle:'にゃん10',logoSub:'ナンバーパズル',liveTxt:'プレイ中',playerUnit:'人',dcBadge:'📅 今日のミッション',rule1:'ねこをタップ → 合計<strong>10</strong>でにゃん~✨',rule2:'時間が経つほどねこが降ってくる！',rule3:'60秒でできるだけたくさん！',startBtn:'🐾 スタート！',resTop:'ゲームオーバー',retryBtn:'🔄 もう一度',retryHint:'画面のどこでもタップでスタート ⚡',shareLabel:'シェア',shareLabels:['X','Threads','カカオ','リンクコピー','もっと'],bestBurst:'🏆 ハイスコア更新！',tutTitle:'あそびかた！',tutS1:'1️⃣ 数字ねこを<b>タップ</b>して選ぶ',tutS2:'2️⃣ 合計が<b>10</b>になったら自動消去！',tutS3:'3️⃣ 一度に3個以上 → <b>ボーナス点 🔥</b>',tutS4:'4️⃣ 連続成功で<b>コンボ！</b>',tutBtn:'はじめる 🐾',cdSub:'ねこたち出動準備中...',dc:['コンボ5達成 🔥','100点達成 💯','タイル20個消去 🐱','200点達成 👑','コンボ3を2回達成 ⚡'],sumPick:'ねこを選んでね 🐱',sumDone:'完成！',sumMore1:'でOK！',sumMore2:'でボーナス！⚡',rush3:'⚡ ラストスパート！',rush2:'🔥 加速して！',rush1:'💨 集中！',shareAch:'にゃん10で',shareScore:'点達成！',shareChallenge:'勝てるかな🐾',shareTag:'#にゃん10 #ナンバーパズル',settingsTitle:'⚙️ 設定',nickname:'😺 ニックネーム',nickPlaceholder:'ニックネーム入力（最大12文字）',saveBtn:'保存',nightMode:'🌙 ナイトモード',bgmLabel:'🎵 BGM',sfxLabel:'🔊 効果音',vibLabel:'📳 バイブ',skinLabel:'🐱 ねこスキン',themeLabel:'🎨 カラーテーマ',saveAll:'保存 💾',changeNick:'ニックネーム変更',privacy:'プライバシーポリシー',terms:'利用規約',coffee:'🧋 コーヒーを奢る',sumLbl:'合計',resSub1:'タイル',resSub2:'個消去',lbTitle:'🏆 今日のTOP 5',loading:'読込中...',restartTitle:'リスタートしますか？',restartSub:'今のスコアが消えます！',cancel:'キャンセル',restartBtn:'リスタート！',nickEmpty:'ニックネームを入力してください 🐱',nickSaved:'ニックネーム保存！😺 ',bestGapMore:'あと{n}点でベスト更新！🔥',bestGapNew:'🏆 ハイスコア更新！',privacyTitle:'🔒 プライバシーポリシー',termsTitle:'📄 利用規約',confirm:'確認 ✅'}
+};
+let _curLang=localStorage.getItem('n10_lang')||'ko';
+function nLang(l){
+  _curLang=l;localStorage.setItem('n10_lang',l);
+  ['ko','en','ja'].forEach(k=>{const b=document.getElementById('lb_'+k);if(b)b.classList.toggle('active',k===l);});
+  const t=_T[l];const $=id=>document.getElementById(id);
+  if($('nLogoTitle'))$('nLogoTitle').textContent=t.logoTitle;
+  if($('nLogoSub'))$('nLogoSub').textContent=t.logoSub;
+  if($('nLiveTxt'))$('nLiveTxt').textContent=t.liveTxt;
+  if($('nDcBadge'))$('nDcBadge').textContent=t.dcBadge;
+  if($('nRule1'))$('nRule1').innerHTML=t.rule1;
+  if($('nRule2'))$('nRule2').textContent=t.rule2;
+  if($('nRule3'))$('nRule3').textContent=t.rule3;
+  if($('nStartBtn'))$('nStartBtn').textContent=t.startBtn;
+  if($('nResTop'))$('nResTop').textContent=t.resTop;
+  if($('nRetryBtn'))$('nRetryBtn').textContent=t.retryBtn;
+  if($('nRetryHint'))$('nRetryHint').textContent=t.retryHint;
+  if($('nShareLabel'))$('nShareLabel').textContent=t.shareLabel;
+  if($('nBestBurst'))$('nBestBurst').textContent=t.bestBurst;
+  if($('nTutTitle'))$('nTutTitle').textContent=t.tutTitle;
+  if($('nTutS1'))$('nTutS1').innerHTML=t.tutS1;
+  if($('nTutS2'))$('nTutS2').innerHTML=t.tutS2;
+  if($('nTutS3'))$('nTutS3').innerHTML=t.tutS3;
+  if($('nTutS4'))$('nTutS4').innerHTML=t.tutS4;
+  if($('nTutBtn'))$('nTutBtn').textContent=t.tutBtn;
+  if($('nCdSub'))$('nCdSub').textContent=t.cdSub;
+  t.shareLabels.forEach((v,i)=>{const el=$('nSL'+i);if(el)el.textContent=v;});
+  const dcEl=$('dcText');
+  if(dcEl){const d=new Date();const idx=(d.getFullYear()*366+d.getMonth()*31+d.getDate())%t.dc.length;dcEl.textContent=t.dc[idx];}
+  // Settings modal
+  if($('nSettingsTitle'))$('nSettingsTitle').textContent=t.settingsTitle;
+  if($('nNicknameLabel'))$('nNicknameLabel').textContent=t.nickname;
+  if($('nSaveNickBtn'))$('nSaveNickBtn').textContent=t.saveBtn;
+  const ni=$('nicknameInput');if(ni)ni.placeholder=t.nickPlaceholder;
+  if($('nNightMode'))$('nNightMode').textContent=t.nightMode;
+  if($('nBgmLabel'))$('nBgmLabel').textContent=t.bgmLabel;
+  if($('nSfxLabel'))$('nSfxLabel').textContent=t.sfxLabel;
+  if($('nVibLabel'))$('nVibLabel').textContent=t.vibLabel;
+  if($('nSkinLabel'))$('nSkinLabel').textContent=t.skinLabel;
+  if($('nThemeLabel'))$('nThemeLabel').textContent=t.themeLabel;
+  if($('nSaveAll'))$('nSaveAll').textContent=t.saveAll;
+  // Start screen footer
+  if($('nChangeNick'))$('nChangeNick').textContent=t.changeNick;
+  if($('nPrivacyLink'))$('nPrivacyLink').textContent=t.privacy;
+  if($('nTermsLink'))$('nTermsLink').textContent=t.terms;
+  if($('nCoffeeLink'))$('nCoffeeLink').textContent=t.coffee;
+  // Game screen
+  if($('nSumLbl'))$('nSumLbl').textContent=t.sumLbl;
+  // Result screen
+  if($('nResSub1'))$('nResSub1').textContent=t.resSub1;
+  if($('nResSub2'))$('nResSub2').textContent=t.resSub2;
+  if($('nLbTitle'))$('nLbTitle').textContent=t.lbTitle;
+  const lb=$('lbList');if(lb&&lb.textContent.trim()===lb.getAttribute('data-loading')||lb&&lb.textContent.trim()==='로딩 중...'||lb&&lb.textContent.trim()==='Loading...'||lb&&lb.textContent.trim()==='読込中...')lb.textContent=t.loading;
+  // Restart modal
+  if($('nRestartTitle'))$('nRestartTitle').textContent=t.restartTitle;
+  if($('nRestartSub'))$('nRestartSub').textContent=t.restartSub;
+  if($('nCancelBtn'))$('nCancelBtn').textContent=t.cancel;
+  if($('nRestartBtn'))$('nRestartBtn').textContent=t.restartBtn;
+  // Terms / Privacy modal titles & confirm
+  if($('nTermsTitle'))$('nTermsTitle').textContent=t.termsTitle;
+  if($('nPrivacyTitle'))$('nPrivacyTitle').textContent=t.privacyTitle;
+  if($('nTermsConfirm'))$('nTermsConfirm').textContent=t.confirm;
+  if($('nPrivacyConfirm'))$('nPrivacyConfirm').textContent=t.confirm;
+  updateLegalContent(l);
+}
+document.addEventListener('DOMContentLoaded',()=>{nLang(_curLang);updateLegalContent(_curLang);});
+</script>
+
+<script>
+const _LEGAL = {
+  ko: {
+    termsContent: `
+      <p style="margin-bottom:10px;color:var(--dim);">시행일: 2026년 1월 1일</p>
+      <b>제1조 (목적)</b>
+      <p style="margin:6px 0 12px;">이 약관은 냥10(이하 "서비스")이 제공하는 웹 게임 서비스의 이용 조건 및 절차, 이용자와 서비스 간의 권리·의무 및 책임사항을 규정합니다.</p>
+      <b>제2조 (이용 자격)</b>
+      <p style="margin:6px 0 12px;">서비스는 만 13세 이상 누구나 무료로 이용할 수 있습니다. 만 13세 미만은 서비스를 이용할 수 없습니다. 대한민국의 경우 만 14세 미만은 법정대리인의 동의가 필요합니다.</p>
+      <b>제3조 (금지 행위)</b>
+      <p style="margin:6px 0 12px;">- 리더보드 점수 조작·어뷰징·핵 사용 등 부정한 방법의 점수 취득<br>- 타 이용자의 게임 진행을 방해하는 행위<br>- 서비스의 정상적인 운영을 방해하는 행위</p>
+      <b>제4조 (서비스 변경 및 중단)</b>
+      <p style="margin:6px 0 12px;">서비스는 운영 정책에 따라 사전 고지 없이 변경되거나 중단될 수 있습니다.</p>
+      <b>제5조 (책임의 한계)</b>
+      <p style="margin:6px 0 12px;">서비스는 이용자의 귀책 사유로 발생한 손해에 대해 책임을 지지 않습니다. 단, 서비스의 고의 또는 중대한 과실로 인한 손해에 대해서는 관련 법령에 따라 책임을 집니다. 이용자가 서비스를 통해 기대하는 특정 이익을 보장하지 않습니다.</p>
+      <b>제6조 (준거법 및 분쟁해결)</b>
+      <p style="margin:6px 0 12px;">이 약관은 대한민국 법률에 따라 해석됩니다. 대한민국 이용자와의 분쟁은 서울중앙지방법원을 관할로 합니다. 해외 이용자의 경우 해당 국가의 강행법규가 우선 적용될 수 있습니다.</p>
+      <b>제7조 (문의)</b>
+      <p style="margin:6px 0 12px;">📧 <a href="mailto:bang.a.can@gmail.com" style="color:var(--pink);">bang.a.can@gmail.com</a></p>
+`,
+    privacyContent: `
+      <p style="margin-bottom:10px;color:var(--dim);">시행일: 2026년 1월 1일</p>
+      <b>1. 수집하는 정보</b>
+      <p style="margin:6px 0 12px;">냥10은 다음 정보를 수집합니다:<br>- 기기 고유 식별자 (랜덤 생성, 개인 특정 불가)<br>- 닉네임 (랜덤 자동 생성 또는 이용자 입력)<br>- 게임 점수 및 플레이 시간</p>
+      <b>2. 수집 목적</b>
+      <p style="margin:6px 0 12px;">- 실시간 리더보드 운영<br>- 동접자 수 표시<br>- 게임 서비스 품질 개선</p>
+      <b>3. 보관 기간</b>
+      <p style="margin:6px 0 12px;">점수 데이터는 당일 기준으로 관리되며, 최대 7일 이내에 삭제됩니다. 기기 식별자는 이용자가 직접 초기화하거나 삭제 요청 시 즉시 파기합니다.</p>
+      <b>4. 제3자 제공 (해외 이전 포함)</b>
+      <p style="margin:6px 0 12px;">수집된 정보는 Firebase(Google LLC, 미국 소재)에 저장됩니다. 이는 대한민국 외 국가로의 개인정보 이전에 해당하며, Google의 개인정보처리방침 및 표준 계약 조항(SCC)에 따라 보호됩니다. 해당 정보는 제3자에게 판매하지 않습니다.</p>
+      <b>5. 이용자 권리</b>
+      <p style="margin:6px 0 12px;">이용자는 언제든지 본인의 데이터 열람·삭제·처리 정지를 요청할 수 있습니다. 설정 화면에서 직접 데이터 초기화가 가능하며, 이메일로도 요청하실 수 있습니다. 요청 후 30일 이내에 처리됩니다.</p>
+      <b>6. 아동 개인정보</b>
+      <p style="margin:6px 0 12px;">서비스는 만 13세 미만 아동의 개인정보를 의도적으로 수집하지 않습니다. 만 13세 미만임이 확인될 경우 즉시 해당 정보를 삭제합니다.</p>
+      <b>7. 문의</b>
+      <p style="margin:6px 0 12px;">📧 <a href="mailto:bang.a.can@gmail.com" style="color:var(--pink);">bang.a.can@gmail.com</a><br>처리 기간: 요청일로부터 30일 이내</p>
+`
+  },
+  en: {
+    termsContent: `
+      <p style="margin-bottom:10px;color:var(--dim);">Effective: January 1, 2026</p>
+      <b>1. Purpose</b>
+      <p style="margin:6px 0 12px;">These Terms govern your use of Nyan10 (the "Service"), a free web-based puzzle game.</p>
+      <b>2. Eligibility</b>
+      <p style="margin:6px 0 12px;">The Service is available to users aged 13 and older. Users under 13 are not permitted to use the Service. This applies globally, including compliance with the U.S. Children's Online Privacy Protection Act (COPPA).</p>
+      <b>3. Prohibited Conduct</b>
+      <p style="margin:6px 0 12px;">- Manipulating leaderboard scores through cheating, exploits, or automation<br>- Interfering with other users' gameplay<br>- Disrupting the normal operation of the Service</p>
+      <b>4. Service Changes &amp; Termination</b>
+      <p style="margin:6px 0 12px;">We may modify or discontinue the Service at any time without prior notice.</p>
+      <b>5. Limitation of Liability</b>
+      <p style="margin:6px 0 12px;">To the fullest extent permitted by applicable law, the Service is not liable for any indirect, incidental, or consequential damages arising from your use of the Service. Nothing in these Terms excludes liability for gross negligence or willful misconduct. For users in jurisdictions where such exclusions are restricted (including Japan and EU member states), local mandatory consumer protection laws apply.</p>
+      <b>6. Governing Law &amp; Disputes</b>
+      <p style="margin:6px 0 12px;">These Terms are governed by the laws of the Republic of Korea. For users in the United States or other countries, nothing in these Terms limits rights you may have under your local mandatory laws. Disputes will be resolved in good faith; if unresolved, the courts of Seoul, Korea shall have jurisdiction, subject to applicable local law.</p>
+      <b>7. California Users (CCPA)</b>
+      <p style="margin:6px 0 12px;">California residents have the right to know what personal data is collected, request deletion, and opt out of sale of personal data. We do not sell personal data. To exercise your rights, contact us at the email below.</p>
+      <b>8. Contact</b>
+      <p style="margin:6px 0 12px;">📧 <a href="mailto:bang.a.can@gmail.com" style="color:var(--pink);">bang.a.can@gmail.com</a></p>
+`,
+    privacyContent: `
+      <p style="margin-bottom:10px;color:var(--dim);">Effective: January 1, 2026</p>
+      <b>1. Information We Collect</b>
+      <p style="margin:6px 0 12px;">Nyan10 collects the following information:<br>- A randomly generated device identifier (cannot identify you personally)<br>- Nickname (auto-generated or user-entered)<br>- Game scores and play duration</p>
+      <b>2. Purpose of Collection</b>
+      <p style="margin:6px 0 12px;">- Operating the real-time leaderboard<br>- Displaying concurrent player count<br>- Improving game quality</p>
+      <b>3. Retention Period</b>
+      <p style="margin:6px 0 12px;">Score data is managed on a daily basis and deleted within 7 days. Device identifiers are deleted immediately upon user request or data reset.</p>
+      <b>4. Third-Party Data Transfer</b>
+      <p style="margin:6px 0 12px;">Data is stored on Firebase (Google LLC, USA). This constitutes an international data transfer governed by Google's Privacy Policy and Standard Contractual Clauses (SCCs). We do not sell your personal data to any third party.</p>
+      <b>5. Your Rights</b>
+      <p style="margin:6px 0 12px;">You have the right to access, delete, or restrict processing of your data at any time. You can reset your data directly in Settings, or contact us by email. Requests will be handled within 30 days.<br><br><u>California residents (CCPA):</u> You have the right to know what data is collected, request deletion, and opt out of sale (we do not sell data).<br><br><u>EU/UK residents (GDPR):</u> You have the right to access, rectify, erase, and port your data, and to lodge a complaint with your local supervisory authority.</p>
+      <b>6. Children's Privacy</b>
+      <p style="margin:6px 0 12px;">We do not knowingly collect personal information from children under 13. If we become aware that a child under 13 has provided data, we will delete it immediately.</p>
+      <b>7. Contact</b>
+      <p style="margin:6px 0 12px;">📧 <a href="mailto:bang.a.can@gmail.com" style="color:var(--pink);">bang.a.can@gmail.com</a><br>Response time: within 30 days of request</p>
+`
+  },
+  ja: {
+    termsContent: `
+      <p style="margin-bottom:10px;color:var(--dim);">施行日：2026年1月1日</p>
+      <b>第1条（目的）</b>
+      <p style="margin:6px 0 12px;">本規約は、にゃん10（以下「サービス」）が提供するウェブゲームサービスの利用条件・手続き、ならびに利用者とサービス間の権利・義務・責任事項を定めることを目的とします。</p>
+      <b>第2条（利用資格）</b>
+      <p style="margin:6px 0 12px;">サービスは13歳以上のすべての方が無料でご利用いただけます。13歳未満の方はご利用いただけません。</p>
+      <b>第3条（禁止行為）</b>
+      <p style="margin:6px 0 12px;">- チート・不正ツール等を用いたスコア不正取得<br>- 他の利用者のゲームプレイを妨害する行為<br>- サービスの正常な運営を妨害する行為</p>
+      <b>第4条（サービスの変更・中断）</b>
+      <p style="margin:6px 0 12px;">サービスは、事前の通知なくサービス内容を変更または中断することがあります。</p>
+      <b>第5条（免責事項）</b>
+      <p style="margin:6px 0 12px;">サービスは、利用者の責めに帰すべき事由により生じた損害については責任を負いません。ただし、サービスの故意または重大な過失による損害については、消費者契約法その他の強行法規に従い責任を負います。本条はお客様の法令上の権利を制限するものではありません。</p>
+      <b>第6条（準拠法・紛争解決）</b>
+      <p style="margin:6px 0 12px;">本規約は大韓民国法を準拠法とします。ただし、日本の消費者契約法その他の強行法規が優先して適用される場合はこの限りではありません。紛争はまず誠実な協議による解決を試み、解決しない場合はソウル中央地方法院を管轄裁判所とします。</p>
+      <b>第7条（お問い合わせ）</b>
+      <p style="margin:6px 0 12px;">📧 <a href="mailto:bang.a.can@gmail.com" style="color:var(--pink);">bang.a.can@gmail.com</a></p>
+`,
+    privacyContent: `
+      <p style="margin-bottom:10px;color:var(--dim);">施行日：2026年1月1日</p>
+      <b>1. 収集する情報</b>
+      <p style="margin:6px 0 12px;">にゃん10は以下の情報を収集します：<br>- ランダム生成の端末識別子（個人の特定不可）<br>- ニックネーム（自動生成または利用者入力）<br>- ゲームスコアおよびプレイ時間</p>
+      <b>2. 収集目的</b>
+      <p style="margin:6px 0 12px;">- リアルタイムリーダーボードの運営<br>- 同時接続者数の表示<br>- サービス品質の改善</p>
+      <b>3. 保管期間</b>
+      <p style="margin:6px 0 12px;">スコアデータは当日基準で管理され、最大7日以内に削除されます。端末識別子は利用者の要請があり次第、速やかに消去します。</p>
+      <b>4. 第三者提供（外国への移転を含む）</b>
+      <p style="margin:6px 0 12px;">収集した情報はFirebase（Google LLC、米国）に保存されます。これは個人情報保護法（APPI）上の「外国にある第三者への提供」に該当します。Googleのプライバシーポリシーおよび標準契約条項（SCC）に基づき保護されます。収集した情報を第三者に販売することはありません。</p>
+      <b>5. 利用者の権利</b>
+      <p style="margin:6px 0 12px;">利用者はいつでもご自身のデータの閲覧・削除・利用停止を請求できます。設定画面からデータを直接リセットすることも可能です。メールでのご要請も受け付けており、30日以内に対応いたします。</p>
+      <b>6. 児童のプライバシー</b>
+      <p style="margin:6px 0 12px;">本サービスは13歳未満のお子様の個人情報を意図的に収集しません。13歳未満の方のデータが確認された場合は直ちに削除します。</p>
+      <b>7. お問い合わせ</b>
+      <p style="margin:6px 0 12px;">📧 <a href="mailto:bang.a.can@gmail.com" style="color:var(--pink);">bang.a.can@gmail.com</a><br>対応期間：ご要請から30日以内</p>
+`
+  }
+};
+function updateLegalContent(lang) {
+  const l = _LEGAL[lang] || _LEGAL.ko;
+  const tc = document.getElementById('termsContent');
+  const pc = document.getElementById('privacyContent');
+  if (tc) tc.innerHTML = l.termsContent;
+  if (pc) pc.innerHTML = l.privacyContent;
+}
 </script>
 </body>
 </html>
