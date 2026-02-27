@@ -38,6 +38,39 @@ body.night .settings-close{background:#3d2d50;color:#f0e0ff;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{background:var(--bg);font-family:'Nunito',sans-serif;min-height:100dvh;height:100dvh;display:flex;flex-direction:column;align-items:center;overflow:hidden;user-select:none;position:relative;}
 .screen{width:100%;max-width:420px;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 14px;position:absolute;top:0;left:50%;transform:translateX(-50%);transition:opacity .2s,transform .2s;z-index:1;pointer-events:auto;}
+@media(min-width:600px){
+  .screen{max-width:520px;padding:20px 20px;}
+  .settings-sheet{max-width:520px;}
+  .logo-title{font-size:72px;}
+  .logo-emoji{font-size:80px;}
+  .tnum{font-size:clamp(28px,5vw,42px)!important;}
+  .t-emoji{font-size:clamp(15px,2.8vw,22px)!important;}
+  .grid-cell{border-radius:14px;}
+  .btn-play{height:72px;font-size:24px;}
+  .rule-item{font-size:16px;}
+  .live-txt{font-size:15px;}
+  .score-val{font-size:56px;}
+  .timer-n{font-size:32px;}
+  .timer-ring-wrap{width:84px;height:84px;}
+  .lb-card{padding:12px 18px;}
+  .lb-row{font-size:14px;}
+}
+@media(min-width:768px){
+  .screen{max-width:600px;padding:24px 28px;}
+  .settings-sheet{max-width:600px;}
+  .logo-title{font-size:84px;}
+  .logo-emoji{font-size:92px;}
+  .tnum{font-size:clamp(32px,4.5vw,48px)!important;}
+  .t-emoji{font-size:clamp(18px,2.5vw,26px)!important;}
+  .btn-play{height:80px;font-size:26px;}
+  .rule-item{font-size:17px;}
+  .score-val{font-size:64px;}
+  .timer-n{font-size:36px;}
+  .timer-ring-wrap{width:96px;height:96px;}
+  .grid{gap:7px;}
+  .grid-wrap{padding:7px;}
+  .lb-row{font-size:15px;padding:6px 0;}
+}
 .screen.hidden{opacity:0;pointer-events:none;transform:translateX(-50%) scale(.97);z-index:0;}
 .logo-emoji{font-size:68px;display:block;text-align:center;animation:boing 2s ease-in-out infinite;}
 @keyframes boing{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
@@ -533,17 +566,30 @@ window.fbLeaderboard=myScore=>{
   if(lbUnsub){lbUnsub();lbUnsub=null;}
   const q=query(ref(db,`alltime`),orderByChild('score'),limitToLast(20));
   lbUnsub=onValue(q,snap=>{
-    if(!snap.exists()){document.getElementById('lbList').textContent=(_T[_curLang]||_T.ko).noRecord;return;}
-    let arr=[];snap.forEach(c=>arr.push({...c.val(),uid:c.key}));
-    arr.sort((a,b)=>b.score-a.score);
+    const lbEl=document.getElementById('lbList');
+    const lt2=(_T[_curLang]||_T.ko);
+    // 내 정보 준비
+    const myName=localStorage.getItem('n10_name')||DEVICE_NAME;
+    let arr=[];
+    if(snap.exists()){snap.forEach(c=>arr.push({...c.val(),uid:c.key}));}
+    // 내 점수가 없거나 더 높으면 최신 점수로 업데이트
     const myEntry=arr.find(e=>e.uid===DEVICE_ID);
-    if(!myEntry||myEntry.score<myScore){arr=arr.filter(e=>e.uid!==DEVICE_ID);arr.push({uid:DEVICE_ID,name:localStorage.getItem('n10_name')||DEVICE_NAME,score:myScore});arr.sort((a,b)=>b.score-a.score);}
+    if(!myEntry||myEntry.score<myScore){
+      arr=arr.filter(e=>e.uid!==DEVICE_ID);
+      arr.push({uid:DEVICE_ID,name:myName,score:myScore});
+    }
+    arr.sort((a,b)=>b.score-a.score);
     const top5=arr.slice(0,5);
-    document.getElementById('lbList').innerHTML=top5.map((e,i)=>{
+    const medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
+    // TOP5 표시 (실제 데이터만, 빈 슬롯은 표시 안 함)
+    lbEl.innerHTML=top5.map((e,i)=>{
       const isMe=e.uid===DEVICE_ID;
       const g=[...GRADES].reverse().find(g=>e.score>=g.min)||GRADES[0];
-      const lt2=(_T[_curLang]||_T.ko);return`<div class="lb-row ${isMe?'me':''}"><span class="lb-rank">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]}</span><span class="lb-name">${isMe?'😺 '+lt2.meLabel+' ('+e.name+')':e.name}</span><span style="font-size:10px;color:var(--dim);margin-right:4px;">${g.e}${gradeTitle(g)}</span><span class="lb-pts">${e.score}${lt2.scoreSuffix}</span></div>`;
+      return`<div class="lb-row ${isMe?'me':''}"><span class="lb-rank">${medals[i]}</span><span class="lb-name">${isMe?'😺 '+lt2.meLabel+' ('+e.name+')':e.name}</span><span style="font-size:10px;color:var(--dim);margin-right:4px;">${g.e}${gradeTitle(g)}</span><span class="lb-pts">${e.score}${lt2.scoreSuffix}</span></div>`;
     }).join('');
+    // 데이터 없으면 내 점수만 표시
+    if(top5.length===0){lbEl.innerHTML=`<div class="lb-row me"><span class="lb-rank">🥇</span><span class="lb-name">😺 ${lt2.meLabel} (${myName})</span><span class="lb-pts">${myScore}${lt2.scoreSuffix}</span></div>`;}
+    // 내 순위 표시
     const myIdx=arr.findIndex(e=>e.uid===DEVICE_ID);
     const rankEl=document.getElementById('resRank');
     if(rankEl&&myIdx>=0){const pct=Math.round(((arr.length-myIdx)/arr.length)*100);const lt3=(_T[_curLang]||_T.ko);rankEl.textContent=lt3.rankTxt.replace('{total}',arr.length).replace('{pct}',pct).replace('{rank}',myIdx+1);}
