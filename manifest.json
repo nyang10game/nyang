@@ -1,38 +1,24 @@
 {
-  "background_color": "#ffffff",
-  "description": "고양이를 탭해서 합이 10이 되면 냥! 60초 안에 최대한 많이 제거하세요. 연속 성공하면 콤보 보너스까지! 🐱",
-  "dir": "ltr",
-  "display": "standalone",
-  "name": "냥10 - 고양이 숫자 퍼즐",
+  "name": "냥10 - 숫자 고양이 퍼즐",
   "short_name": "냥10",
+  "description": "고양이와 함께하는 숫자 퍼즐 게임",
+  "start_url": "/nyang/",
+  "scope": "/nyang/",
+  "display": "standalone",
   "orientation": "portrait",
-  "scope": "/",
-  "start_url": "/",
-  "id": "com.nyang10.game",
-  "theme_color": "#ff6eb4",
+  "background_color": "#ffffff",
+  "theme_color": "#ff6b6b",
   "lang": "ko",
-  "categories": ["games", "puzzle"],
-  "prefer_related_applications": false,
   "icons": [
     {
-      "src": "https://nyang10game.github.io/nyang/og-image.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "src": "/nyang/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "https://nyang10game.github.io/nyang/og-image.png",
+      "src": "/nyang/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "type": "image/png"
     }
-  ],
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
-  "handle_links": "preferred",
-  "launch_handler": {
-    "client_mode": "focus-existing"
-  },
-  "edge_side_panel": {
-    "preferred_width": 400
-  }
+  ]
 }
