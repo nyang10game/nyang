@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.nyang10.game",
+      "sha256_cert_fingerprints": [
+        "9E:65:0C:E3:01:B9:4D:AB:C8:FD:F8:E9:11:F2:FB:7C:8A:DC:EF:6F:89:96:28:F3:41:FA:53:8A:A3:73:75:16"
+      ]
+    }
+  }
+]
